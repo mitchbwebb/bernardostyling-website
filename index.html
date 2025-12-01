@@ -1,154 +1,586 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bernardo Styling - Luxury Celebrity Styling</title>
-  <meta name="description" content="Bernardo Styling - Luxury personal styling services for celebrities and modern individuals.">
-  <meta property="og:title" content="Bernardo Styling - Luxury Celebrity Styling">
-  <meta property="og:description" content="Premium styling services for the modern individual.">
-  <meta property="og:image" content="https://s2-gq.glbimg.com/w_kOuEV1rEyB8tr882hHITHF-E0=/0x0:1920x1080/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_71a8fe14ac6d40bd993eb59f7203fe6f/internal_photos/bs/2025/s/y/g4aBpGQjuiKpbWiPdGaA/gil-do-vigor.jpg">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=EB+Garamond:wght@400;600&display=swap" rel="stylesheet">
+  <title>BERNARDO STYLING - Celebrity Stylist Estilista de Celebridades</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --gold: #C89116;
-      --black: #000000;
-      --white: #FFFFFF;
-      --silver: #C0C0C0;
+      --color-black: #000000;
+      --color-gold: #C89116;
+      --color-silver: #C0C0C0;
+      --color-white: #FFFFFF;
+      --color-gray-dark: #1a1a1a;
+      --color-gray-light: #f5f5f5;
+      --font-primary: 'EB Garamond', serif;
+      --font-secondary: 'Montserrat', sans-serif;
+      --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Montserrat', sans-serif; color: var(--white); background: var(--black); line-height: 1.6; }
-    a { color: var(--gold); text-decoration: none; transition: 0.3s; }
-    a:hover { color: var(--silver); }
-    header { position: fixed; top: 0; width: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 1.5rem 2rem; }
-    .header-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-size: 1.5rem; font-weight: 700; color: var(--gold); font-family: 'EB Garamond', serif; }
-    nav { display: flex; gap: 2rem; align-items: center; }
-    nav a { color: var(--white); }
-    .lang-toggle { background: var(--gold); color: var(--black); border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-weight: 600; font-family: 'Montserrat', sans-serif; }
-    .lang-toggle:hover { background: var(--silver); }
-    main { margin-top: 80px; }
-    .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(135deg, rgba(200,145,22,0.1) 0%, rgba(0,0,0,0.5) 100%); }
-    .hero h1 { font-size: 4rem; font-weight: 800; color: var(--gold); margin-bottom: 1rem; font-family: 'EB Garamond', serif; }
-    .hero p { font-size: 1.5rem; color: var(--white); margin-bottom: 2rem; }
-    .featured-section { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
-    .featured-section h2 { font-size: 2.5rem; color: var(--gold); margin-bottom: 2rem; font-family: 'EB Garamond', serif; }
-    .featured-content { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
-    .featured-image { width: 100%; border-radius: 8px; overflow: hidden; }
-    .featured-image img { width: 100%; height: auto; display: block; }
-    .photo-credit { font-size: 0.85rem; color: var(--silver); margin-top: 1rem; font-style: italic; }
-    .featured-text h3 { font-size: 2rem; color: var(--gold); margin-bottom: 1rem; }
-    .featured-text p { color: var(--white); margin-bottom: 1.5rem; line-height: 1.8; }
-    .services { padding: 4rem 2rem; background: rgba(200,145,22,0.05); }
-    .services-container { max-width: 1200px; margin: 0 auto; }
-    .services h2 { font-size: 2.5rem; color: var(--gold); margin-bottom: 2rem; text-align: center; font-family: 'EB Garamond', serif; }
-    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-    .service-card { background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 8px; border-left: 4px solid var(--gold); }
-    .service-card h3 { color: var(--gold); margin-bottom: 1rem; }
-    .contact-section { padding: 4rem 2rem; text-align: center; max-width: 600px; margin: 0 auto; }
-    .contact-section h2 { font-size: 2rem; color: var(--gold); margin-bottom: 1.5rem; }
-    .contact-button { background: var(--gold); color: var(--black); padding: 1rem 2rem; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 1rem; }
-    .contact-button:hover { background: var(--silver); }
-    .hidden { display: none; }
-    @media (max-width: 768px) { .featured-content { grid-template-columns: 1fr; } .services-grid { grid-template-columns: 1fr; } nav { gap: 1rem; font-size: 0.9rem; } .hero h1 { font-size: 2rem; } }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-secondary);
+      background-color: var(--color-white);
+      color: var(--color-black);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      padding: 1.5rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--color-gold);
+    }
+
+    .logo {
+      font-family: var(--font-primary);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--color-white);
+      letter-spacing: 3px;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--color-white);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 400;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--color-gold);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .lang-toggle {
+      background: none;
+      border: 1px solid var(--color-gold);
+      color: var(--color-gold);
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-family: var(--font-secondary);
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      transition: var(--transition);
+    }
+
+    .lang-toggle:hover {
+      background: var(--color-gold);
+      color: var(--color-black);
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .mobile-menu span {
+      width: 25px;
+      height: 2px;
+      background: var(--color-white);
+      transition: var(--transition);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--color-black) 0%, var(--color-gray-dark) 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 0 5%;
+      margin-top: 80px;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      text-align: center;
+      z-index: 1;
+    }
+
+    .monogram {
+      font-family: var(--font-primary);
+      font-size: 8rem;
+      font-weight: 700;
+      color: transparent;
+      -webkit-text-stroke: 2px var(--color-gold);
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      font-family: var(--font-primary);
+      font-size: 4.5rem;
+      font-weight: 600;
+      color: var(--color-white);
+      letter-spacing: 8px;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .hero-tagline {
+      font-size: 1.4rem;
+      color: var(--color-silver);
+      margin-bottom: 3rem;
+      font-weight: 300;
+      letter-spacing: 2px;
+    }
+
+    .cta-primary {
+      display: inline-block;
+      padding: 1.2rem 3rem;
+      background: var(--color-gold);
+      color: var(--color-black);
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: var(--transition);
+      border: 2px solid var(--color-gold);
+      font-size: 0.95rem;
+    }
+
+    .cta-primary:hover {
+      background: transparent;
+      color: var(--color-gold);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(200, 145, 22, 0.3);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 50px;
+      border: 2px solid var(--color-gold);
+      border-radius: 25px;
+      display: flex;
+      justify-content: center;
+      padding-top: 8px;
+    }
+
+    /* Section Styles */
+    section {
+      padding: 8rem 5%;
+    }
+
+    .section-title {
+      font-family: var(--font-primary);
+      font-size: 3.5rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 1rem;
+      color: var(--color-black);
+      letter-spacing: 3px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-silver);
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto 5rem;
+      font-weight: 300;
+    }
+
+    /* Services */
+    .services {
+      background: var(--color-gray-light);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: var(--color-white);
+      padding: 3rem 2.5rem;
+      border: 1px solid var(--color-silver);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--color-gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: var(--transition);
+    }
+
+    .service-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    }
+
+    .service-icon {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-card h3 {
+      font-family: var(--font-primary);
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--color-black);
+    }
+
+    .service-card p {
+      color: #555;
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+
+    /* Contact & Responsive */
+    .contact {
+      background: var(--color-black);
+      color: var(--color-white);
+      text-align: center;
+    }
+
+    .contact .section-title {
+      color: var(--color-white);
+    }
+
+    .contact-form {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--color-silver);
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--color-silver);
+      color: var(--color-white);
+      font-family: var(--font-secondary);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--color-gold);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 1.2rem;
+      background: var(--color-gold);
+      color: var(--color-black);
+      border: 2px solid var(--color-gold);
+      font-family: var(--font-secondary);
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .submit-btn:hover {
+      background: transparent;
+      color: var(--color-gold);
+    }
+
+    /* Animations */
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem 5%;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.98);
+        flex-direction: column;
+        padding: 5rem 2rem;
+        transition: var(--transition);
+        z-index: 999;
+      }
+
+      .nav-links.active {
+        right: 0;
+      }
+
+      .mobile-menu {
+        display: flex;
+      }
+
+      .monogram {
+        font-size: 5rem;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+        letter-spacing: 3px;
+      }
+
+      .hero-tagline {
+        font-size: 1rem;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+      }
+
+      .contact-info {
+        flex-direction: column;
+        gap: 2rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <div class="header-content">
-      <div class="logo">BERNARDO STYLING</div>
-      <nav>
-        <a href="#home" class="nav-en hidden">Home</a>
-        <a href="#home" class="nav-pt">Início</a>
-        <a href="#services" class="nav-en hidden">Services</a>
-        <a href="#services" class="nav-pt">Serviços</a>
-        <a href="#contact" class="nav-en hidden">Contact</a>
-        <a href="#contact" class="nav-pt">Contato</a>
-        <button class="lang-toggle" onclick="toggleLanguage()"><span class="lang-text-en hidden">EN</span><span class="lang-text-pt">PT</span></button>
-      </nav>
+  <nav>
+    <a href="#" class="logo" onclick="scrollTo('home')">BERNARDO STYLING</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#" data-en="Services" data-pt="Serviços" onclick="scrollTo('services')">Serviços</a>
+      <a href="#" data-en="Locations" data-pt="Localizações" onclick="scrollTo('locations')">Localizações</a>
+      <a href="#" data-en="Contact" data-pt="Contato" onclick="scrollTo('contact')">Contato</a>
+      <button class="lang-toggle" onclick="toggleLanguage()"><span class="lang-text-en hidden">EN</span><span class="lang-text-pt">PT</span></button>
     </div>
-  </header>
-  <main>
-    <section class="hero" id="home">
-      <h1 class="hero-title-pt">BERNARDO STYLING</h1>
-      <h1 class="hero-title-en hidden">BERNARDO STYLING</h1>
-      <p class="hero-subtitle-pt">Estilo de Luxo para o Indivíduo Moderno</p>
-      <p class="hero-subtitle-en hidden">Luxury Styling for the Modern Individual</p>
-    </section>
-    <section class="featured-section">
-      <h2 class="featured-title-pt hidden">Destaque</h2>
-      <h2 class="featured-title-en hidden">Featured</h2>
-      <div class="featured-content">
-        <div class="featured-image">
-          <img src="https://s2-gq.glbimg.com/w_kOuEV1rEyB8tr882hHITHF-E0=/0x0:1920x1080/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_71a8fe14ac6d40bd993eb59f7203fe6f/internal_photos/bs/2025/s/y/g4aBpGQjuiKpbWiPdGaA/gil-do-vigor.jpg" alt="Gil do Vigor">
-          <div class="photo-credit">Foto: Gil do Vigor na festa de 60 anos da Globo — Divulgação / GQ Brasil</div>
-        </div>
-        <div class="featured-text">
-          <h3 class="featured-name-pt hidden">Gil do Vigor</h3>
-          <h3 class="featured-name-en hidden">Gil do Vigor</h3>
-          <p class="featured-desc-pt hidden">Experimente o estilo de luxo que define o indivíduo moderno. Nossos serviços de styling exclusivos transformam sua aparência com elegância e sofisticação.</p>
-          <p class="featured-desc-en hidden">Experience the luxury styling that defines the modern individual. Our exclusive styling services transform your appearance with elegance and sophistication.</p>
-        </div>
+    <div class="mobile-menu" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <div class="monogram">B</div>
+      <h1 data-en="BERNARDO STYLING" data-pt="BERNARDO STYLING">BERNARDO STYLING</h1>
+      <p class="hero-tagline" data-en="Where Personal Style Becomes Iconic Identity" data-pt="Onde o Estilo Pessoal se Transforma em Identidade Icônica">Onde o Estilo Pessoal se Transforma em Identidade Icônica</p>
+      <a href="#contact" class="cta-primary" data-en="Book Private Consultation" data-pt="Agende Consultoria Privada">Agende Consultoria Privada</a>
+    </div>
+    <div class="scroll-indicator"></div>
+  </section>
+
+  <section class="services" id="services">
+    <h2 class="section-title" data-en="Exclusive Services" data-pt="Serviços Exclusivos">Serviços Exclusivos</h2>
+    <p class="section-subtitle" data-en="Each look is crafted to reflect your essence" data-pt="Cada look criado para refletir sua essência">Cada look criado para refletir sua essência</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">✨</div>
+        <h3 data-en="Strategic Styling" data-pt="Styling Estratégico">Styling Estratégico</h3>
+        <p data-en="Creating signature looks based on trends" data-pt="Criaçãode looks autorais baseados em tendências">Criação de looks autorais baseados em tendências</p>
       </div>
-    </section>
-    <section class="services" id="services">
-      <div class="services-container">
-        <h2 class="services-title-pt hidden">Serviços</h2>
-        <h2 class="services-title-en hidden">Services</h2>
-        <div class="services-grid">
-          <div class="service-card">
-            <h3 class="service-name-1-pt hidden">Consultoria de Estilo</h3>
-            <h3 class="service-name-1-en hidden">Style Consultation</h3>
-            <p class="service-desc-1-pt hidden">Orientação personalizada para seu guarda-roupa ideal.</p>
-            <p class="service-desc-1-en hidden">Personalized guidance for your ideal wardrobe.</p>
-          </div>
-          <div class="service-card">
-            <h3 class="service-name-2-pt hidden">Curadoria de Moda</h3>
-            <h3 class="service-name-2-en hidden">Fashion Curation</h3>
-            <p class="service-desc-2-pt hidden">Seleção exclusiva de peças que refletem sua personalidade.</p>
-            <p class="service-desc-2-en hidden">Exclusive selection of pieces that reflect your personality.</p>
-          </div>
-          <div class="service-card">
-            <h3 class="service-name-3-pt hidden">Estilo para Eventos</h3>
-            <h3 class="service-name-3-en hidden">Event Styling</h3>
-            <p class="service-desc-3-pt hidden">Preparação completa para seus momentos especiais.</p>
-            <p class="service-desc-3-en hidden">Complete preparation for your special moments.</p>
-          </div>
-        </div>
+      <div class="service-card">
+        <div class="service-icon">👔</div>
+        <h3 data-en="Exclusive One-on-One" data-pt="Atendimento Exclusivo">Atendimento Exclusivo</h3>
+        <p data-en="Personalized attention with total focus" data-pt="Atenção personalizada com foco total em você">Atenção personalizada com foco total em você</p>
       </div>
-    </section>
-    <section class="contact-section" id="contact">
-      <h2 class="contact-title-pt hidden">Entre em Contato</h2>
-      <h2 class="contact-title-en hidden">Get in Touch</h2>
-      <p class="contact-text-pt hidden">Pronto para transformar seu estilo? Fale conosco hoje.</p>
-      <p class="contact-text-en hidden">Ready to transform your style? Contact us today.</p>
-      <button class="contact-button"><span class="contact-btn-pt hidden">Contato</span><span class="contact-btn-en hidden">Contact</span></button>
-    </section>
-  </main>
+      <div class="service-card">
+        <div class="service-icon">🌍</div>
+        <h3 data-en="International Inspiration" data-pt="Inspiração Internacional">Inspiração Internacional</h3>
+        <p data-en="Global influences blended with your aesthetic" data-pt="Influências globais combinadas com sua estética">Influências globais combinadas com sua estética</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="locations">
+    <h2 class="section-title" data-en="Our Locations" data-pt="Nossas Localizações">Nossas Localizações</h2>
+    <p class="section-subtitle" data-en="Premium styling services worldwide" data-pt="Serviços premium de styling em todo o mundo">Serviços premium de styling em todo o mundo</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>São Paulo</h3>
+        <p data-en="Brazil's fashion capital" data-pt="Capital da moda brasileira">Capital da moda brasileira</p>
+      </div>
+      <div class="service-card">
+        <h3>Rio de Janeiro</h3>
+        <p data-en="Where style meets the beach" data-pt="Onde o estilo encontra a praia">Onde o estilo encontra a praia</p>
+      </div>
+      <div class="service-card">
+        <h3>Los Angeles</h3>
+        <p data-en="Hollywood glamour redefined" data-pt="Glamour de Hollywood redefinido">Glamour de Hollywood redefinido</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <h2 class="section-title" data-en="Begin Your Transformation" data-pt="Inicie Sua Transformação">Inicie Sua Transformação</h2>
+    <p class="section-subtitle" data-en="Book your private consultation" data-pt="Agende sua consultoria privada">Agende sua consultoria privada</p>
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <div class="form-group">
+        <label data-en="Full Name" data-pt="Nome Completo">Nome Completo</label>
+        <input type="text" required>
+      </div>
+      <div class="form-group">
+        <label data-en="Email" data-pt="Email">Email</label>
+        <input type="email" required>
+      </div>
+      <div class="form-group">
+        <label data-en="Phone" data-pt="Telefone">Telefone</label>
+        <input type="tel" required>
+      </div>
+      <div class="form-group">
+        <label data-en="Message" data-pt="Mensagem">Mensagem</label>
+        <textarea required></textarea>
+      </div>
+      <button type="submit" class="submit-btn" data-en="Request Consultation" data-pt="Solicitar Consultoria">Solicitar Consultoria</button>
+    </form>
+  </section>
+
   <script>
-    const currentLanguage = localStorage.getItem('language') || 'pt';
-    
-    function setLanguage(lang) {
-      localStorage.setItem('language', lang);
-      document.querySelectorAll('[class*="-pt"]').forEach(el => {
-        el.classList.add('hidden');
-      });
-      document.querySelectorAll('[class*="-en"]').forEach(el => {
-        el.classList.add('hidden');
-      });
-      if (lang === 'pt') {
-        document.querySelectorAll('[class*="-pt"]').forEach(el => el.classList.remove('hidden'));
-      } else {
-        document.querySelectorAll('[class*="-en"]').forEach(el => el.classList.remove('hidden'));
+    let currentLang = localStorage.getItem('language') || 'pt';
+
+    function toggleMenu() {
+      const navLinks = document.getElementById('navLinks');
+      navLinks.classList.toggle('active');
+    }
+
+    function scrollTo(id) {
+      document.getElementById('navLinks').classList.remove('active');
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
       }
     }
-    
+
     function toggleLanguage() {
-      const lang = localStorage.getItem('language') || 'pt';
-      setLanguage(lang === 'pt' ? 'en' : 'pt');
+      currentLang = currentLang === 'pt' ? 'en' : 'pt';
+      localStorage.setItem('language', currentLang);
+      updateLanguage();
     }
-    
-    setLanguage(currentLanguage);
+
+    function updateLanguage() {
+      const elements = document.querySelectorAll('[data-en][data-pt]');
+      elements.forEach(el => {
+        const attr = currentLang === 'en' ? 'data-en' : 'data-pt';
+        el.textContent = el.getAttribute(attr);
+      });
+
+      // Update language button
+      const enBtn = document.querySelector('.lang-text-en');
+      const ptBtn = document.querySelector('.lang-text-pt');
+      if (currentLang === 'en') {
+        enBtn?.classList.remove('hidden');
+        ptBtn?.classList.add('hidden');
+      } else {
+        enBtn?.classList.add('hidden');
+        ptBtn?.classList.remove('hidden');
+      }
+    }
+
+    function handleSubmit(event) {
+      event.preventDefault();
+      alert(currentLang === 'en' ? 'Thank you! We will contact you soon.' : 'Obrigado! Entraremos em contato em breve.');
+      event.target.reset();
+    }
+
+    // Initialize
+    updateLanguage();
+
+    // Add smooth scroll behavior
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
   </script>
 </body>
 </html>
