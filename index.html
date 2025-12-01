@@ -1,240 +1,154 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bernardo Styling - Luxury Celebrity Styling</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=EB+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --gold: #C89116;
-            --black: #000000;
-            --white: #FFFFFF;
-            --silver: #C0C0C0;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Montserrat', sans-serif; color: var(--white); background: var(--black); line-height: 1.6; }
-        a { color: var(--gold); text-decoration: none; transition: 0.3s; }
-        a:hover { color: var(--silver); }
-        header { position: fixed; top: 0; width: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--gold); font-family: 'EB Garamond', serif; }
-        nav { display: flex; gap: 2rem; align-items: center; }
-        nav a { font-size: 0.9rem; }
-        .lang-toggle { background: var(--gold); color: var(--black); border: none; padding: 0.5rem 1rem; cursor: pointer; border-radius: 4px; font-weight: 600; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; margin-top: 70px; }
-        .carousel-slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 1s ease; display: flex; align-items: center; justify-content: center; }
-        .carousel-slide.active { opacity: 1; }
-        .carousel-overlay { text-align: center; z-index: 10; }
-        .carousel-overlay h1 { font-size: 4rem; font-family: 'EB Garamond', serif; color: var(--gold); margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
-        .carousel-overlay p { font-size: 1.5rem; color: var(--white); text-shadow: 1px 1px 3px rgba(0,0,0,0.8); }
-        section { padding: 5rem 0; }
-        section h2 { font-size: 2.5rem; font-family: 'EB Garamond', serif; color: var(--gold); margin-bottom: 2rem; text-align: center; }
-        .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem; }
-        .service-card { background: rgba(200,145,22,0.1); border: 2px solid var(--gold); padding: 2rem; text-align: center; transition: 0.3s; }
-        .service-card:hover { background: rgba(200,145,22,0.2); transform: translateY(-5px); }
-        .article-section { background: rgba(200,145,22,0.05); padding: 3rem; border-left: 5px solid var(--gold); margin: 2rem 0; }
-        .article-section img { width: 100%; max-width: 300px; margin: 1rem 0; border-radius: 8px; }
-        .article-content { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; }
-        .contact-form { max-width: 600px; margin: 2rem auto; }
-        .form-group { margin-bottom: 1.5rem; }
-        label { display: block; margin-bottom: 0.5rem; color: var(--gold); font-weight: 600; }
-        input, textarea, select { width: 100%; padding: 0.75rem; background: rgba(192,192,192,0.1); border: 1px solid var(--gold); color: var(--white); font-family: 'Montserrat', sans-serif; }
-        input:focus, textarea:focus, select:focus { outline: none; background: rgba(192,192,192,0.2); border-color: var(--silver); }
-        button { width: 100%; padding: 1rem; background: var(--gold); color: var(--black); border: none; font-weight: 700; cursor: pointer; transition: 0.3s; border-radius: 4px; }
-        button:hover { background: var(--silver); }
-        footer { background: rgba(200,145,22,0.1); padding: 2rem; text-align: center; border-top: 2px solid var(--gold); margin-top: 3rem; }
-        .hidden { display: none; }
-        @media(max-width: 768px) { nav { gap: 1rem; } header { padding: 0.75rem 1rem; } .carousel-overlay h1 { font-size: 2rem; } section { padding: 2rem 0; } .article-content { grid-template-columns: 1fr; } }
-    </style>
-</head><body>
-<header>
-    <div class="logo">BERNARDO STYLING</div>
-    <nav id="nav-pt">
-        <a href="#inicio">Início</a>
-        <a href="#servicos">Serviços</a>
-        <a href="#destaque">Destaque</a>
-        <a href="#contato">Contato</a>
-        <button class="lang-toggle" onclick="switchLanguage()">EN</button>
-    </nav>
-    <nav id="nav-en" class="hidden">
-        <a href="#inicio">Home</a>
-        <a href="#servicos">Services</a>
-        <a href="#destaque">Featured</a>
-        <a href="#contato">Contact</a>
-        <button class="lang-toggle" onclick="switchLanguage()">PT</button>
-    </nav>
-</header>
-
-<section id="inicio" class="hero">
-    <div class="carousel-slide active" style="background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=800&fit=crop');"></div>
-    <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1595777707802-41dc6ee6b21f?w=1200&h=800&fit=crop');"></div>
-    <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=1200&h=800&fit=crop');"></div>
-    <div class="carousel-overlay">
-        <h1 id="mission-pt">Transformar celebridades em ícones de estilo</h1>
-        <h1 id="mission-en" class="hidden">Transform celebrities into style icons</h1>
-        <p id="tagline-pt">Estilo Luxuoso para o Indivíduo Moderno</p>
-        <p id="tagline-en" class="hidden">Luxury Style for the Modern Individual</p>
-    </div>
-</section>
-
-<section id="servicos" class="container">
-    <h2 id="services-title-pt">Nossos Serviços</h2>
-    <h2 id="services-title-en" class="hidden">Our Services</h2>
-    <div class="services">
-        <div class="service-card">
-            <h3 style="color: var(--gold); margin-bottom: 1rem; font-family: 'EB Garamond', serif;"><span id="service1-pt">Consultoria Pessoal de Estilo</span><span id="service1-en" class="hidden">Personal Styling Consultation</span></h3>
-            <p id="service1-desc-pt">Análise completa de seu estilo pessoal e criação de um guarda-roupa atemporizado</p>
-            <p id="service1-desc-en" class="hidden">Complete analysis of your personal style and creation of a timeless wardrobe</p>
-        </div>
-        <div class="service-card">
-            <h3 style="color: var(--gold); margin-bottom: 1rem; font-family: 'EB Garamond', serif;"><span id="service2-pt">Styling para Eventos</span><span id="service2-en" class="hidden">Event Styling</span></h3>
-            <p id="service2-desc-pt">Preparação de looks impecáveis para eventos especiais e ocasiões memoráveis</p>
-            <p id="service2-desc-en" class="hidden">Preparation of impeccable looks for special events and memorable occasions</p>
-        </div>
-        <div class="service-card">
-            <h3 style="color: var(--gold); margin-bottom: 1rem; font-family: 'EB Garamond', serif;"><span id="service3-pt">Consultoria de Marca Pessoal</span><span id="service3-en" class="hidden">Personal Branding Consultation</span></h3>
-            <p id="service3-desc-pt">Desenvolvimento de uma imagem consistente e autêntica que reflete seus valores</p>
-            <p id="service3-desc-en" class="hidden">Development of a consistent and authentic image that reflects your values</p>
-        </div>
-    </div>
-</section>
-
-<section id="destaque" class="container">
-    <h2 id="featured-title-pt">Destaque da Imprensa</h2>
-    <h2 id="featured-title-en" class="hidden">Press Feature</h2>
-    
-    <div class="article-section" id="article-pt">
-        <h3 style="color: var(--gold); margin-bottom: 1rem; font-size: 1.8rem; font-family: 'EB Garamond', serif;">Eddy Bernardo Estiliza Gil da Vigor para Festa dos 60 Anos da Globo</h3>
-        <div class="article-content">
-            <div>
-                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=500&fit=crop" alt="Gil da Vigor - Globo 60 anos">
-            </div>
-            <div>
-                <p><strong>Ex-BBB e apresentador Gil da Vigor</strong> escolheu um look grifado de R$ 18,3 mil para a comemoração dos 60 anos da Rede Globo, com a supervisão do personal stylist <strong>Eddy Bernardo</strong>.</p>
-                <p style="margin-top: 1rem;">"Eu queria algo que fosse elegante, fino, discreto, mas que, ao mesmo tempo, representasse a grandiosidade desse evento, que merecia um look escolhido com todo cuidado."</p>
-                <p style="margin-top: 1rem;">Look completo: <strong>Full Armani (R$ 11.650) + Sapatos Dolce & Gabbana (R$ 6.700)</strong></p>
-                <p style="margin-top: 1.5rem;"><a href="https://gq.globo.com/estilo/noticia/2025/04/gil-do-vigor-escolhe-look-grifado-de-r-183-mil-para-festa-dos-60-anos-da-globo.ghtml" target="_blank">Leia o artigo completo no GQ Brasil →</a></p>
-            </div>
-        </div>
-    </div>
-
-    <div class="article-section hidden" id="article-en">
-        <h3 style="color: var(--gold); margin-bottom: 1rem; font-size: 1.8rem; font-family: 'EB Garamond', serif;">Eddy Bernardo Styles Gil da Vigor for Globo's 60th Anniversary Celebration</h3>
-        <div class="article-content">
-            <div>
-                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=500&fit=crop" alt="Gil da Vigor - Globo 60 years">
-            </div>
-            <div>
-                <p><strong>Former Big Brother contestant and TV host Gil da Vigor</strong> chose a designer look valued at R$18,300 for the celebration of TV Globo's 60th anniversary, under the supervision of personal stylist <strong>Eddy Bernardo</strong>.</p>
-                <p style="margin-top: 1rem;">"I wanted something that was elegant, refined, and discreet, but at the same time represented the grandeur of this event, which deserved a carefully chosen look," Gil explained.</p>
-                <p style="margin-top: 1rem;">Complete look: <strong>Full Armani (R$ 11,650) + Dolce & Gabbana Shoes (R$ 6,700)</strong></p>
-                <p style="margin-top: 1.5rem;"><a href="https://gq.globo.com/estilo/noticia/2025/04/gil-do-vigor-escolhe-look-grifado-de-r-183-mil-para-festa-dos-60-anos-da-globo.ghtml" target="_blank">Read the full article on GQ Brasil →</a></p>
-            </div>
-        </div>
-    </div>
-</section>
-<section id="contato" class="container">
-    <h2 id="contact-title-pt">Entre em Contato</h2>
-    <h2 id="contact-title-en" class="hidden">Get in Touch</h2>
-    
-    <form class="contact-form" action="https://formspree.io/f/xvgzkbny" method="POST">
-        <div class="form-group">
-            <label id="name-label-pt" for="name">Nome Completo</label>
-            <label id="name-label-en" class="hidden" for="name">Full Name</label>
-            <input type="text" id="name" name="name" required>
-        </div>
-        
-        <div class="form-group">
-            <label id="email-label-pt" for="email">Email</label>
-            <label id="email-label-en" class="hidden" for="email">Email</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        
-        <div class="form-group">
-            <label id="phone-label-pt" for="phone">Telefone</label>
-            <label id="phone-label-en" class="hidden" for="phone">Phone</label>
-            <select id="phone-country" onchange="updatePhoneMask()">
-                <option value="br">+55 Brasil</option>
-                <option value="us">+1 USA</option>
-            </select>
-            <input type="tel" id="phone" name="phone" placeholder="(XX) XXXXX-XXXX" required>
-        </div>
-        
-        <div class="form-group">
-            <label id="message-label-pt" for="message">Mensagem</label>
-            <label id="message-label-en" class="hidden" for="message">Message</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-        </div>
-        
-        <button type="submit" id="submit-btn-pt">Enviar Mensagem</button>
-        <button type="submit" id="submit-btn-en" class="hidden">Send Message</button>
-    </form>
-</section>
-
-<footer>
-    <p>&copy; 2025 Bernardo Styling. Todos os direitos reservados. | All rights reserved.</p>
-    <p><a href="mailto:contact@bernardostyling.com">contact@bernardostyling.com</a></p>
-</footer>
-
-<script>
-let currentLanguage = 'pt';
-const slides = document.querySelectorAll('.carousel-slide');
-let currentSlide = 0;
-
-function showSlide(n) {
-    slides[currentSlide].classList.remove('active');
-    currentSlide = (n + slides.length) % slides.length;
-    slides[currentSlide].classList.add('active');
-}
-
-function nextSlide() {
-    showSlide(currentSlide + 1);
-}
-
-setInterval(nextSlide, 5000);
-
-function switchLanguage() {
-    currentLanguage = currentLanguage === 'pt' ? 'en' : 'pt';
-    const ptElements = document.querySelectorAll('[id$="-pt"]');
-    const enElements = document.querySelectorAll('[id$="-en"]');
-    
-    ptElements.forEach(el => el.classList.toggle('hidden'));
-    enElements.forEach(el => el.classList.toggle('hidden'));
-}
-
-function formatPhone(input) {
-    let value = input.value.replace(/\D/g, '');
-    const country = document.getElementById('phone-country').value;
-    
-    if (country === 'br') {
-        if (value.length > 11) value = value.slice(0, 11);
-        if (value.length > 7) {
-            value = '(' + value.slice(0, 2) + ') ' + value.slice(2, 7) + '-' + value.slice(7);
-        } else if (value.length > 2) {
-            value = '(' + value.slice(0, 2) + ') ' + value.slice(2);
-        }
-    } else {
-        if (value.length > 10) value = value.slice(0, 10);
-        if (value.length > 6) {
-            value = '(' + value.slice(0, 3) + ') ' + value.slice(3, 6) + '-' + value.slice(6);
-        } else if (value.length > 3) {
-            value = '(' + value.slice(0, 3) + ') ' + value.slice(3);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bernardo Styling - Luxury Celebrity Styling</title>
+  <meta name="description" content="Bernardo Styling - Luxury personal styling services for celebrities and modern individuals.">
+  <meta property="og:title" content="Bernardo Styling - Luxury Celebrity Styling">
+  <meta property="og:description" content="Premium styling services for the modern individual.">
+  <meta property="og:image" content="https://s2-gq.glbimg.com/w_kOuEV1rEyB8tr882hHITHF-E0=/0x0:1920x1080/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_71a8fe14ac6d40bd993eb59f7203fe6f/internal_photos/bs/2025/s/y/g4aBpGQjuiKpbWiPdGaA/gil-do-vigor.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=EB+Garamond:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #C89116;
+      --black: #000000;
+      --white: #FFFFFF;
+      --silver: #C0C0C0;
     }
-    input.value = value;
-}
-
-function updatePhoneMask() {
-    const phone = document.getElementById('phone');
-    const country = document.getElementById('phone-country').value;
-    phone.value = '';
-    phone.placeholder = country === 'br' ? '(XX) XXXXX-XXXX' : '(XXX) XXX-XXXX';
-}
-
-document.getElementById('phone').addEventListener('input', function() {
-    formatPhone(this);
-});
-</script>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', sans-serif; color: var(--white); background: var(--black); line-height: 1.6; }
+    a { color: var(--gold); text-decoration: none; transition: 0.3s; }
+    a:hover { color: var(--silver); }
+    header { position: fixed; top: 0; width: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 1.5rem 2rem; }
+    .header-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.5rem; font-weight: 700; color: var(--gold); font-family: 'EB Garamond', serif; }
+    nav { display: flex; gap: 2rem; align-items: center; }
+    nav a { color: var(--white); }
+    .lang-toggle { background: var(--gold); color: var(--black); border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-weight: 600; font-family: 'Montserrat', sans-serif; }
+    .lang-toggle:hover { background: var(--silver); }
+    main { margin-top: 80px; }
+    .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(135deg, rgba(200,145,22,0.1) 0%, rgba(0,0,0,0.5) 100%); }
+    .hero h1 { font-size: 4rem; font-weight: 800; color: var(--gold); margin-bottom: 1rem; font-family: 'EB Garamond', serif; }
+    .hero p { font-size: 1.5rem; color: var(--white); margin-bottom: 2rem; }
+    .featured-section { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .featured-section h2 { font-size: 2.5rem; color: var(--gold); margin-bottom: 2rem; font-family: 'EB Garamond', serif; }
+    .featured-content { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .featured-image { width: 100%; border-radius: 8px; overflow: hidden; }
+    .featured-image img { width: 100%; height: auto; display: block; }
+    .photo-credit { font-size: 0.85rem; color: var(--silver); margin-top: 1rem; font-style: italic; }
+    .featured-text h3 { font-size: 2rem; color: var(--gold); margin-bottom: 1rem; }
+    .featured-text p { color: var(--white); margin-bottom: 1.5rem; line-height: 1.8; }
+    .services { padding: 4rem 2rem; background: rgba(200,145,22,0.05); }
+    .services-container { max-width: 1200px; margin: 0 auto; }
+    .services h2 { font-size: 2.5rem; color: var(--gold); margin-bottom: 2rem; text-align: center; font-family: 'EB Garamond', serif; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .service-card { background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 8px; border-left: 4px solid var(--gold); }
+    .service-card h3 { color: var(--gold); margin-bottom: 1rem; }
+    .contact-section { padding: 4rem 2rem; text-align: center; max-width: 600px; margin: 0 auto; }
+    .contact-section h2 { font-size: 2rem; color: var(--gold); margin-bottom: 1.5rem; }
+    .contact-button { background: var(--gold); color: var(--black); padding: 1rem 2rem; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 1rem; }
+    .contact-button:hover { background: var(--silver); }
+    .hidden { display: none; }
+    @media (max-width: 768px) { .featured-content { grid-template-columns: 1fr; } .services-grid { grid-template-columns: 1fr; } nav { gap: 1rem; font-size: 0.9rem; } .hero h1 { font-size: 2rem; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="logo">BERNARDO STYLING</div>
+      <nav>
+        <a href="#home" class="nav-en hidden">Home</a>
+        <a href="#home" class="nav-pt">Início</a>
+        <a href="#services" class="nav-en hidden">Services</a>
+        <a href="#services" class="nav-pt">Serviços</a>
+        <a href="#contact" class="nav-en hidden">Contact</a>
+        <a href="#contact" class="nav-pt">Contato</a>
+        <button class="lang-toggle" onclick="toggleLanguage()"><span class="lang-text-en hidden">EN</span><span class="lang-text-pt">PT</span></button>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero" id="home">
+      <h1 class="hero-title-pt">BERNARDO STYLING</h1>
+      <h1 class="hero-title-en hidden">BERNARDO STYLING</h1>
+      <p class="hero-subtitle-pt">Estilo de Luxo para o Indivíduo Moderno</p>
+      <p class="hero-subtitle-en hidden">Luxury Styling for the Modern Individual</p>
+    </section>
+    <section class="featured-section">
+      <h2 class="featured-title-pt hidden">Destaque</h2>
+      <h2 class="featured-title-en hidden">Featured</h2>
+      <div class="featured-content">
+        <div class="featured-image">
+          <img src="https://s2-gq.glbimg.com/w_kOuEV1rEyB8tr882hHITHF-E0=/0x0:1920x1080/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_71a8fe14ac6d40bd993eb59f7203fe6f/internal_photos/bs/2025/s/y/g4aBpGQjuiKpbWiPdGaA/gil-do-vigor.jpg" alt="Gil do Vigor">
+          <div class="photo-credit">Foto: Gil do Vigor na festa de 60 anos da Globo — Divulgação / GQ Brasil</div>
+        </div>
+        <div class="featured-text">
+          <h3 class="featured-name-pt hidden">Gil do Vigor</h3>
+          <h3 class="featured-name-en hidden">Gil do Vigor</h3>
+          <p class="featured-desc-pt hidden">Experimente o estilo de luxo que define o indivíduo moderno. Nossos serviços de styling exclusivos transformam sua aparência com elegância e sofisticação.</p>
+          <p class="featured-desc-en hidden">Experience the luxury styling that defines the modern individual. Our exclusive styling services transform your appearance with elegance and sophistication.</p>
+        </div>
+      </div>
+    </section>
+    <section class="services" id="services">
+      <div class="services-container">
+        <h2 class="services-title-pt hidden">Serviços</h2>
+        <h2 class="services-title-en hidden">Services</h2>
+        <div class="services-grid">
+          <div class="service-card">
+            <h3 class="service-name-1-pt hidden">Consultoria de Estilo</h3>
+            <h3 class="service-name-1-en hidden">Style Consultation</h3>
+            <p class="service-desc-1-pt hidden">Orientação personalizada para seu guarda-roupa ideal.</p>
+            <p class="service-desc-1-en hidden">Personalized guidance for your ideal wardrobe.</p>
+          </div>
+          <div class="service-card">
+            <h3 class="service-name-2-pt hidden">Curadoria de Moda</h3>
+            <h3 class="service-name-2-en hidden">Fashion Curation</h3>
+            <p class="service-desc-2-pt hidden">Seleção exclusiva de peças que refletem sua personalidade.</p>
+            <p class="service-desc-2-en hidden">Exclusive selection of pieces that reflect your personality.</p>
+          </div>
+          <div class="service-card">
+            <h3 class="service-name-3-pt hidden">Estilo para Eventos</h3>
+            <h3 class="service-name-3-en hidden">Event Styling</h3>
+            <p class="service-desc-3-pt hidden">Preparação completa para seus momentos especiais.</p>
+            <p class="service-desc-3-en hidden">Complete preparation for your special moments.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="contact-section" id="contact">
+      <h2 class="contact-title-pt hidden">Entre em Contato</h2>
+      <h2 class="contact-title-en hidden">Get in Touch</h2>
+      <p class="contact-text-pt hidden">Pronto para transformar seu estilo? Fale conosco hoje.</p>
+      <p class="contact-text-en hidden">Ready to transform your style? Contact us today.</p>
+      <button class="contact-button"><span class="contact-btn-pt hidden">Contato</span><span class="contact-btn-en hidden">Contact</span></button>
+    </section>
+  </main>
+  <script>
+    const currentLanguage = localStorage.getItem('language') || 'pt';
+    
+    function setLanguage(lang) {
+      localStorage.setItem('language', lang);
+      document.querySelectorAll('[class*="-pt"]').forEach(el => {
+        el.classList.add('hidden');
+      });
+      document.querySelectorAll('[class*="-en"]').forEach(el => {
+        el.classList.add('hidden');
+      });
+      if (lang === 'pt') {
+        document.querySelectorAll('[class*="-pt"]').forEach(el => el.classList.remove('hidden'));
+      } else {
+        document.querySelectorAll('[class*="-en"]').forEach(el => el.classList.remove('hidden'));
+      }
+    }
+    
+    function toggleLanguage() {
+      const lang = localStorage.getItem('language') || 'pt';
+      setLanguage(lang === 'pt' ? 'en' : 'pt');
+    }
+    
+    setLanguage(currentLanguage);
+  </script>
 </body>
 </html>
