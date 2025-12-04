@@ -430,6 +430,80 @@ display: flex;      align-items: center;
   </style>
 </head>
 <body>
+
+
+      /* Vision & Mission Section */
+    #vision-mission {
+        padding: 5rem 2rem;
+        background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+        position: relative;
+    }
+    
+    .vision-mission-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 3rem;
+        margin-top: 3rem;
+    }
+    
+    .vision-card, .mission-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--color-gold);
+        border-radius: 15px;
+        padding: 2.5rem;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .vision-card::before, .mission-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, var(--color-gold), transparent);
+    }
+    
+    .vision-card:hover, .mission-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--color-white);
+        box-shadow: 0 15px 40px rgba(201, 145, 22, 0.3);
+    }
+    
+    .vision-card h3, .mission-card h3 {
+        color: var(--color-gold);
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+    }
+    
+    .vision-card p, .mission-card p {
+        color: var(--color-gray-light);
+        font-size: 1.1rem;
+        line-height: 1.8;
+        font-family: 'Montserrat', sans-serif;
+    }
+    
+    @media (max-width: 768px) {
+        #vision-mission {
+            padding: 3rem 1rem;
+        }
+        
+        .vision-mission-container {
+            gap: 2rem;
+        }
+        
+        .vision-card, .mission-card {
+            padding: 2rem;
+        }
+    }
+
+  
   <nav>
     <a href="#" class="logo" onclick="scrollTo('home')">BERNARDO STYLING</a>
     <div class="nav-links" id="navLinks">
@@ -489,6 +563,24 @@ display: flex;      align-items: center;
   <section id="locations">
     <h2 class="section-title" data-en="Our Locations" data-pt="Nossas Localizações">Nossas Localizações</h2>
     <p class="section-subtitle" data-en="Premium styling services worldwide" data-pt="Serviços premium de styling em todo o mundo">Serviços premium de styling em todo o mundo</p>
+
+        <!-- Vision & Mission Section -->
+    <section id="vision-mission">
+        <h2 class="section-title" data-en="Our Vision & Mission" data-pt="Nossa Visão e Missão">Our Vision & Mission</h2>
+        
+        <div class="vision-mission-container">
+            <div class="vision-card">
+                <h3 data-en="Vision Statement" data-pt="Declaração de Visão">Vision Statement</h3>
+                <p data-en="To bring celebrity-level styling to clients around the world, making an iconic image an everyday reality, not a distant dream." data-pt="Trazer styling de nível de celebridade para clientes em todo o mundo, tornando uma imagem icônica uma realidade cotidiana, não um sonho distante.">To bring celebrity-level styling to clients around the world, making an iconic image an everyday reality, not a distant dream.</p>
+            </div>
+            
+            <div class="mission-card">
+                <h3 data-en="Mission Statement" data-pt="Declaração de Missão">Mission Statement</h3>
+                <p data-en="To craft personalized, strategic looks that bring celebrity-level styling into everyday life, translating each client's unique personality into a polished, iconic image." data-pt="Criar looks personalizados e estratégicos que trazem styling de nível de celebridade para o dia a dia, traduzindo a personalidade única de cada cliente em uma imagem polida e icônica.">To craft personalized, strategic looks that bring celebrity-level styling into everyday life, translating each client's unique personality into a polished, iconic image.</p>
+            </div>
+        </div>
+    </section>
+
     <div class="services-grid">
       <div class="service-card">
         <h3>São Paulo</h3>
