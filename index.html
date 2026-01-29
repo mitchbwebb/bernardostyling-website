@@ -1,9 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BERNARDO STYLING - Celebrity Stylist Estilista de Celebridades</title>
+  <title>Eddy Bernardo - Celebrity Stylist | Bernardo Styling | Estilista de Celebridades</title>
+  <meta name="description" content="Eddy Bernardo is a celebrity personal stylist offering exclusive styling services in São Paulo, Rio de Janeiro, and Los Angeles. Featured in GQ Brasil for styling Gil do Vigor. Book a private consultation today.">
+  <meta name="keywords" content="Eddy Bernardo, Bernardo Styling, celebrity stylist, personal stylist, estilista de celebridades, estilista pessoal, São Paulo stylist, Rio de Janeiro stylist, Los Angeles stylist, Gil do Vigor stylist, fashion consultant, consultor de moda">
+  <meta name="author" content="Eddy Bernardo">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://bernardostyling.com/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bernardostyling.com/">
+  <meta property="og:title" content="Eddy Bernardo - Celebrity Stylist | Bernardo Styling">
+  <meta property="og:description" content="Eddy Bernardo is a celebrity personal stylist featured in GQ Brasil. Exclusive styling services in São Paulo, Rio de Janeiro, and Los Angeles.">
+  <meta property="og:image" content="https://bernardostyling.com/images/gil-do-vigor-globo-60.jpg">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="Bernardo Styling">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Eddy Bernardo - Celebrity Stylist | Bernardo Styling">
+  <meta name="twitter:description" content="Eddy Bernardo is a celebrity personal stylist featured in GQ Brasil. Exclusive styling services in São Paulo, Rio de Janeiro, and Los Angeles.">
+  <meta name="twitter:image" content="https://bernardostyling.com/images/gil-do-vigor-globo-60.jpg">
+
+  <!-- Language alternates -->
+  <link rel="alternate" hreflang="pt" href="https://bernardostyling.com/">
+  <link rel="alternate" hreflang="en" href="https://bernardostyling.com/">
+  <link rel="alternate" hreflang="x-default" href="https://bernardostyling.com/">
+
+  <!-- Structured Data - Person (Eddy Bernardo) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Eddy Bernardo",
+    "alternateName": ["Bernardo Styling", "Edicle Bernardo"],
+    "jobTitle": "Celebrity Personal Stylist",
+    "description": "Eddy Bernardo is a celebrity personal stylist known for styling high-profile clients including Gil do Vigor. Featured in GQ Brasil for his work at Globo's 60th Anniversary Party.",
+    "url": "https://bernardostyling.com",
+    "sameAs": [
+      "https://www.instagram.com/bernardostyling"
+    ],
+    "knowsAbout": ["Fashion Styling", "Celebrity Styling", "Personal Styling", "Wardrobe Consulting", "Image Consulting"],
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Bernardo Styling",
+      "url": "https://bernardostyling.com"
+    }
+  }
+  </script>
+
+  <!-- Structured Data - Local Business -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Bernardo Styling",
+    "description": "Celebrity personal styling services by Eddy Bernardo. Exclusive one-on-one styling, strategic fashion consulting, and international style inspiration.",
+    "url": "https://bernardostyling.com",
+    "founder": {
+      "@type": "Person",
+      "name": "Eddy Bernardo"
+    },
+    "areaServed": [
+      {"@type": "City", "name": "São Paulo", "addressCountry": "BR"},
+      {"@type": "City", "name": "Rio de Janeiro", "addressCountry": "BR"},
+      {"@type": "City", "name": "Los Angeles", "addressCountry": "US"}
+    ],
+    "serviceType": ["Celebrity Styling", "Personal Styling", "Wardrobe Consulting", "Fashion Consulting"],
+    "knowsLanguage": ["Portuguese", "English"],
+    "sameAs": [
+      "https://www.instagram.com/bernardostyling"
+    ]
+  }
+  </script>
+
+  <!-- Structured Data - Featured Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Gil do Vigor styled by Eddy Bernardo at Globo's 60th Anniversary Party",
+    "description": "Gil do Vigor chose a designer look valued at R$18,300 under the supervision of his personal stylist Eddy Bernardo for Globo's 60th anniversary celebration.",
+    "image": "https://bernardostyling.com/images/gil-do-vigor-globo-60.jpg",
+    "author": {
+      "@type": "Organization",
+      "name": "GQ Brasil"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "GQ Brasil",
+      "url": "https://gq.globo.com"
+    },
+    "mentions": [
+      {
+        "@type": "Person",
+        "name": "Eddy Bernardo",
+        "jobTitle": "Celebrity Personal Stylist"
+      },
+      {
+        "@type": "Person",
+        "name": "Gil do Vigor"
+      }
+    ]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -110,6 +215,25 @@
     .lang-toggle:hover {
       background: var(--color-gold);
       color: var(--color-black);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 998;
+    }
+
+    .menu-overlay.active {
+      display: block;
     }
 
     .mobile-menu {
@@ -554,6 +678,7 @@ display: flex;      align-items: center;
   <body>
 
   
+  <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
   <nav>
     <a href="#" class="logo" onclick="scrollTo('home')">BERNARDO STYLING</a>
     <div class="nav-links" id="navLinks">
@@ -562,7 +687,7 @@ display: flex;      align-items: center;
       <a href="#" data-en="Contact" data-pt="Contato" onclick="scrollTo('contact')">Contato</a>
       <button class="lang-toggle" onclick="toggleLanguage()"><span class="lang-text-en hidden">EN</span><span class="lang-text-pt">PT</span></button>
     </div>
-    <div class="mobile-menu" onclick="toggleMenu()">
+    <div class="mobile-menu" onclick="toggleMenu()" style="z-index: 1001;">
       <span></span>
       <span></span>
       <span></span>
@@ -673,16 +798,29 @@ display: flex;      align-items: center;
     </form>
   </section>
 
+  <footer style="background: #000; padding: 3rem 5%; text-align: center; border-top: 1px solid #C89116;">
+    <p style="color: #fff; margin-bottom: 1rem;" data-en="Follow us on Instagram" data-pt="Siga-nos no Instagram">Siga-nos no Instagram</p>
+    <a href="https://www.instagram.com/bernardostyling?igsh=bTF6NDd5N2t6NzJl&utm_source=qr" target="_blank" style="display: inline-block; padding: 0.8rem 2rem; background: #C89116; color: #000; text-decoration: none; font-weight: 600; transition: all 0.3s ease;" data-en="@bernardostyling" data-pt="@bernardostyling">@bernardostyling</a>
+    <p style="color: #C0C0C0; margin-top: 2rem; font-size: 0.9rem;" data-en="Copyright 2025 Bernardo Styling. All rights reserved." data-pt="Direitos autorais 2025 Bernardo Styling. Todos os direitos reservados.">Direitos autorais 2025 Bernardo Styling. Todos os direitos reservados.</p>
+  </footer>
+
   <script>
     let currentLang = localStorage.getItem('language') || 'pt';
 
     function toggleMenu() {
       const navLinks = document.getElementById('navLinks');
+      const overlay = document.getElementById('menuOverlay');
       navLinks.classList.toggle('active');
+      overlay.classList.toggle('active');
+    }
+
+    function closeMenu() {
+      document.getElementById('navLinks').classList.remove('active');
+      document.getElementById('menuOverlay').classList.remove('active');
     }
 
     function scrollTo(id) {
-      document.getElementById('navLinks').classList.remove('active');
+      closeMenu();
       const element = document.getElementById(id);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
@@ -693,16 +831,27 @@ display: flex;      align-items: center;
       currentLang = currentLang === 'pt' ? 'en' : 'pt';
       localStorage.setItem('language', currentLang);
       updateLanguage();
+      closeMenu();
     }
 
     function updateLanguage() {
       const elements = document.querySelectorAll('[data-en][data-pt]');
       elements.forEach(el => {
         const attr = currentLang === 'en' ? 'data-en' : 'data-pt';
-        el.textContent = el.getAttribute(attr);
+        if (el.querySelector('.highlight-name')) {
+          // Preserve inner HTML for elements with styled children
+          const text = el.getAttribute(attr);
+          if (currentLang === 'en') {
+            el.innerHTML = 'Styled by <span class="highlight-name">Bernardo</span>';
+          } else {
+            el.innerHTML = 'Estilizado por <span class="highlight-name">Bernardo</span>';
+          }
+        } else {
+          el.textContent = el.getAttribute(attr);
+        }
       });
 
-      // Update language button
+      // Update language button text
       const enBtn = document.querySelector('.lang-text-en');
       const ptBtn = document.querySelector('.lang-text-pt');
       if (currentLang === 'en') {
@@ -712,6 +861,9 @@ display: flex;      align-items: center;
         enBtn?.classList.add('hidden');
         ptBtn?.classList.remove('hidden');
       }
+
+      // Update html lang attribute
+      document.documentElement.lang = currentLang;
     }
 
     function handleSubmit(event) {
@@ -735,9 +887,4 @@ display: flex;      align-items: center;
     });
   </script>
 </body>
-<footer style="background: #000; padding: 3rem 5%; text-align: center; border-top: 1px solid #C89116;">
-  <p style="color: #fff; margin-bottom: 1rem;" data-en="Follow us on Instagram" data-pt="Siga-nos no Instagram">Siga-nos no Instagram</p>
-  <a href="https://www.instagram.com/bernardostyling?igsh=bTF6NDd5N2t6NzJl&utm_source=qr" target="_blank" style="display: inline-block; padding: 0.8rem 2rem; background: #C89116; color: #000; text-decoration: none; font-weight: 600; transition: all 0.3s ease;" data-en="@bernardostyling" data-pt="@bernardostyling">@bernardostyling</a>
-  <p style="color: #C0C0C0; margin-top: 2rem; font-size: 0.9rem;" data-en="Copyright 2025 Bernardo Styling" data-pt="Direitos autorais 2025 Bernardo Styling">Direitos autorais 2025 Bernardo Styling</p>
-</footer>
 </html>
