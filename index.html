@@ -200,21 +200,37 @@
       width: 100%;
     }
 
-    .lang-toggle {
+    /* Language Switcher - always visible in nav */
+    .lang-switcher {
+      display: flex;
+      gap: 0;
+      align-items: center;
+    }
+
+    .lang-btn {
       background: none;
       border: 1px solid var(--color-gold);
-      color: var(--color-gold);
-      padding: 0.5rem 1rem;
+      color: var(--color-silver);
+      padding: 0.4rem 0.7rem;
       cursor: pointer;
       font-family: var(--font-secondary);
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       letter-spacing: 1px;
       transition: var(--transition);
     }
 
-    .lang-toggle:hover {
+    .lang-btn:first-child {
+      border-right: none;
+    }
+
+    .lang-btn.active {
       background: var(--color-gold);
       color: var(--color-black);
+      font-weight: 600;
+    }
+
+    .lang-btn:not(.active):hover {
+      color: var(--color-gold);
     }
 
     .hidden {
@@ -237,10 +253,11 @@
     }
 
     .mobile-menu {
-      display: flex;
+      display: none;
       flex-direction: column;
       gap: 5px;
       cursor: pointer;
+      z-index: 1001;
     }
 
     .mobile-menu span {
@@ -248,6 +265,20 @@
       height: 2px;
       background: var(--color-white);
       transition: var(--transition);
+      display: block;
+    }
+
+    /* Hamburger to X animation */
+    .mobile-menu.open span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .mobile-menu.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
     }
 
     /* Hero Section */
@@ -553,6 +584,14 @@ display: flex;      align-items: center;
         display: flex;
       }
 
+      /* Language switcher stays in nav bar, not in slide-out */
+      .lang-switcher {
+        position: absolute;
+        right: 60px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
       .monogram {
         font-size: 5rem;
       }
@@ -680,14 +719,17 @@ display: flex;      align-items: center;
   
   <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
   <nav>
-    <a href="#" class="logo" onclick="scrollTo('home')">BERNARDO STYLING</a>
+    <a href="#" class="logo" onclick="navScrollTo('home')">BERNARDO STYLING</a>
     <div class="nav-links" id="navLinks">
-      <a href="#" data-en="Services" data-pt="Serviços" onclick="scrollTo('services')">Serviços</a>
-      <a href="#" data-en="Locations" data-pt="Localizações" onclick="scrollTo('locations')">Localizações</a>
-      <a href="#" data-en="Contact" data-pt="Contato" onclick="scrollTo('contact')">Contato</a>
-      <button class="lang-toggle" onclick="toggleLanguage()"><span class="lang-text-en hidden">EN</span><span class="lang-text-pt">PT</span></button>
+      <a href="#" data-en="Services" data-pt="Serviços" onclick="navScrollTo('services')">Serviços</a>
+      <a href="#" data-en="Locations" data-pt="Localizações" onclick="navScrollTo('locations')">Localizações</a>
+      <a href="#" data-en="Contact" data-pt="Contato" onclick="navScrollTo('contact')">Contato</a>
     </div>
-    <div class="mobile-menu" onclick="toggleMenu()" style="z-index: 1001;">
+    <div class="lang-switcher">
+      <button class="lang-btn" id="langEN" onclick="setLanguage('en')">EN</button>
+      <button class="lang-btn active" id="langPT" onclick="setLanguage('pt')">PT</button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu" onclick="toggleMenu()">
       <span></span>
       <span></span>
       <span></span>
@@ -703,25 +745,26 @@ display: flex;      align-items: center;
     </div>
   </section>
 
-  <section class="services" id="services">
- <section class="featured" id="featured">
-  <div class="featured-content">
-    <h2 data-en="Featured" data-pt="Destaque">Destaque</h2>
-    <p data-en="Gil do Vigor at Globo's 60th Anniversary Party" data-pt="Gil do Vigor na festa de 60 anos da Globo">Gil do Vigor na festa de 60 anos da Globo</p>
-                <p class="stylist-name" data-en="Styled by Bernardo" data-pt="Estilizado por Bernardo">Styled by <span class="highlight-name">Bernardo</span></p>
-    <p data-en="Bernardo styling showcased at one of Brazil's most prestigious fashion events" data-pt="Styling de Bernardo destaque em um dos eventos de moda mais prestigiados do Brasil">Styling de Bernardo destaque em um dos eventos de moda mais prestigiados do Brasil</p>
-    <div class="photo-credit" data-en="Photo Credit: Gil do Vigor at Globo's 60th Anniversary Party - Source: GQ Brasil" data-pt="Crédito da Foto: Gil do Vigor na festa de 60 anos da Globo - Foto: Divulgação / GQ Brasil">Crédito da Foto: Gil do Vigor na festa de 60 anos da Globo - Foto: Divulgação / GQ Brasil</div>
-                            <p data-en="For the special occasion, Gil opted for a designer look valued at R$ 18,300. In an exclusive interview with GQ Brazil, he shares details of his choice, made under the supervision of his personal stylist, Eddy Bernardo. 'I wanted something elegant, refined, discreet, but that, at the same time, represented the grandeur of this event, which deserved a look chosen with great care.' Gil wears a full Armani look (R$ 11,650) and Dolce & Gabbana shoes (R$ 6,700)." data-pt="Para a ocasião especial, Gil optou por um look de grife, avaliado em R$ 18.300. Em entrevista exclusiva à GQ Brasil, ele compartilha detalhes de sua escolha, feita sob supervisão de seu estilista pessoal, Eddy Bernardo. 'Eu queria algo elegante, refinado, discreto, mas que, ao mesmo tempo, representasse a grandiosidade desse evento, que merecia um look escolhido com muito cuidado.' Gil veste look completo da Armani (R$ 11.650) e sapatos Dolce & Gabbana (R$ 6.700).">For the special occasion, Gil opted for a designer look valued at R$ 18,300. In an exclusive interview with GQ Brazil, he shares details of his choice, made under the supervision of his personal stylist, <strong>Eddy Bernardo</strong>. "I wanted something elegant, refined, discreet, but that, at the same time, represented the grandeur of this event, which deserved a look chosen with great care." Gil wears a full Armani look (R$ 11,650) and Dolce & Gabbana shoes (R$ 6,700).</p>
-  </div>
-            <a href="https://gq.globo.com/estilo/noticia/2025/04/gil-do-vigor-escolhe-look-grifado-de-r-183-mil-para-festa-dos-60-anos-da-globo.ghtml" target="_blank" rel="noopener noreferrer"><img src="images/gil-do-vigor-globo-60.jpg" alt="Gil do Vigor styling by Bernardo at Globo's 60th Anniversary" class="featured-image"></a></section>
+  <section class="featured" id="featured">
+    <div class="featured-content">
+      <h2 data-en="Featured" data-pt="Destaque">Destaque</h2>
+      <p data-en="Gil do Vigor at Globo's 60th Anniversary Party" data-pt="Gil do Vigor na festa de 60 anos da Globo">Gil do Vigor na festa de 60 anos da Globo</p>
+      <p class="stylist-name" data-en="Styled by Bernardo" data-pt="Estilizado por Bernardo" data-has-html="true">Styled by <span class="highlight-name">Bernardo</span></p>
+      <p data-en="Bernardo styling showcased at one of Brazil's most prestigious fashion events" data-pt="Styling de Bernardo destaque em um dos eventos de moda mais prestigiados do Brasil">Styling de Bernardo destaque em um dos eventos de moda mais prestigiados do Brasil</p>
+      <div class="photo-credit" data-en="Photo Credit: Gil do Vigor at Globo's 60th Anniversary Party - Source: GQ Brasil" data-pt="Crédito da Foto: Gil do Vigor na festa de 60 anos da Globo - Foto: Divulgação / GQ Brasil">Crédito da Foto: Gil do Vigor na festa de 60 anos da Globo - Foto: Divulgação / GQ Brasil</div>
+      <p data-en="For the special occasion, Gil opted for a designer look valued at R$ 18,300. In an exclusive interview with GQ Brazil, he shares details of his choice, made under the supervision of his personal stylist, Eddy Bernardo. 'I wanted something elegant, refined, discreet, but that, at the same time, represented the grandeur of this event, which deserved a look chosen with great care.' Gil wears a full Armani look (R$ 11,650) and Dolce & Gabbana shoes (R$ 6,700)." data-pt="Para a ocasião especial, Gil optou por um look de grife, avaliado em R$ 18.300. Em entrevista exclusiva à GQ Brasil, ele compartilha detalhes de sua escolha, feita sob supervisão de seu estilista pessoal, Eddy Bernardo. 'Eu queria algo elegante, refinado, discreto, mas que, ao mesmo tempo, representasse a grandiosidade desse evento, que merecia um look escolhido com muito cuidado.' Gil veste look completo da Armani (R$ 11.650) e sapatos Dolce & Gabbana (R$ 6.700)." data-has-html="true" data-en-html="For the special occasion, Gil opted for a designer look valued at R$ 18,300. In an exclusive interview with GQ Brazil, he shares details of his choice, made under the supervision of his personal stylist, <strong>Eddy Bernardo</strong>. &quot;I wanted something elegant, refined, discreet, but that, at the same time, represented the grandeur of this event, which deserved a look chosen with great care.&quot; Gil wears a full Armani look (R$ 11,650) and Dolce &amp; Gabbana shoes (R$ 6,700)." data-pt-html="Para a ocasião especial, Gil optou por um look de grife, avaliado em R$ 18.300. Em entrevista exclusiva à GQ Brasil, ele compartilha detalhes de sua escolha, feita sob supervisão de seu estilista pessoal, <strong>Eddy Bernardo</strong>. &quot;Eu queria algo elegante, refinado, discreto, mas que, ao mesmo tempo, representasse a grandiosidade desse evento, que merecia um look escolhido com muito cuidado.&quot; Gil veste look completo da Armani (R$ 11.650) e sapatos Dolce &amp; Gabbana (R$ 6.700).">For the special occasion, Gil opted for a designer look valued at R$ 18,300. In an exclusive interview with GQ Brazil, he shares details of his choice, made under the supervision of his personal stylist, <strong>Eddy Bernardo</strong>. "I wanted something elegant, refined, discreet, but that, at the same time, represented the grandeur of this event, which deserved a look chosen with great care." Gil wears a full Armani look (R$ 11,650) and Dolce & Gabbana shoes (R$ 6,700).</p>
+    </div>
+    <a href="https://gq.globo.com/estilo/noticia/2025/04/gil-do-vigor-escolhe-look-grifado-de-r-183-mil-para-festa-dos-60-anos-da-globo.ghtml" target="_blank" rel="noopener noreferrer"><img src="images/gil-do-vigor-globo-60.jpg" alt="Gil do Vigor styled by Eddy Bernardo at Globo's 60th Anniversary - Bernardo Styling" class="featured-image"></a>
+  </section>
 
+  <section class="services" id="services">
     <h2 class="section-title" data-en="Exclusive Services" data-pt="Serviços Exclusivos">Serviços Exclusivos</h2>
     <p class="section-subtitle" data-en="Each look is crafted to reflect your essence" data-pt="Cada look criado para refletir sua essência">Cada look criado para refletir sua essência</p>
     <div class="services-grid">
       <div class="service-card">
         <div class="service-icon">✨</div>
         <h3 data-en="Strategic Styling" data-pt="Styling Estratégico">Styling Estratégico</h3>
-        <p data-en="Creating signature looks based on trends" data-pt="Criaçãode looks autorais baseados em tendências">Criação de looks autorais baseados em tendências</p>
+        <p data-en="Creating signature looks based on trends" data-pt="Criação de looks autorais baseados em tendências">Criação de looks autorais baseados em tendências</p>
       </div>
       <div class="service-card">
         <div class="service-icon">👔</div>
@@ -740,8 +783,7 @@ display: flex;      align-items: center;
     <h2 class="section-title" data-en="Our Locations" data-pt="Nossas Localizações">Nossas Localizações</h2>
     <p class="section-subtitle" data-en="Premium styling services worldwide" data-pt="Serviços premium de styling em todo o mundo">Serviços premium de styling em todo o mundo</p>
 
-        <!-- Vision & Mission Section -->
-       <div class="services-grid">
+    <div class="services-grid">
       <div class="service-card">
         <h3>São Paulo</h3>
         <p data-en="Brazil's fashion capital" data-pt="Capital da moda brasileira">Capital da moda brasileira</p>
@@ -807,79 +849,94 @@ display: flex;      align-items: center;
   <script>
     let currentLang = localStorage.getItem('language') || 'pt';
 
+    // --- Mobile Menu ---
     function toggleMenu() {
-      const navLinks = document.getElementById('navLinks');
-      const overlay = document.getElementById('menuOverlay');
+      var navLinks = document.getElementById('navLinks');
+      var overlay = document.getElementById('menuOverlay');
+      var burger = document.getElementById('mobileMenu');
       navLinks.classList.toggle('active');
       overlay.classList.toggle('active');
+      burger.classList.toggle('open');
     }
 
     function closeMenu() {
       document.getElementById('navLinks').classList.remove('active');
       document.getElementById('menuOverlay').classList.remove('active');
+      document.getElementById('mobileMenu').classList.remove('open');
     }
 
-    function scrollTo(id) {
+    // --- Navigation (renamed to avoid shadowing window.scrollTo) ---
+    function navScrollTo(id) {
       closeMenu();
-      const element = document.getElementById(id);
+      var element = document.getElementById(id);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     }
 
-    function toggleLanguage() {
-      currentLang = currentLang === 'pt' ? 'en' : 'pt';
+    // --- Language Switching ---
+    function setLanguage(lang) {
+      currentLang = lang;
       localStorage.setItem('language', currentLang);
       updateLanguage();
-      closeMenu();
     }
 
     function updateLanguage() {
-      const elements = document.querySelectorAll('[data-en][data-pt]');
-      elements.forEach(el => {
-        const attr = currentLang === 'en' ? 'data-en' : 'data-pt';
-        if (el.querySelector('.highlight-name')) {
-          // Preserve inner HTML for elements with styled children
-          const text = el.getAttribute(attr);
-          if (currentLang === 'en') {
-            el.innerHTML = 'Styled by <span class="highlight-name">Bernardo</span>';
-          } else {
-            el.innerHTML = 'Estilizado por <span class="highlight-name">Bernardo</span>';
+      var elements = document.querySelectorAll('[data-en][data-pt]');
+      elements.forEach(function(el) {
+        // Elements with rich HTML use data-xx-html attributes
+        if (el.hasAttribute('data-has-html')) {
+          var htmlAttr = currentLang === 'en' ? 'data-en-html' : 'data-pt-html';
+          var htmlContent = el.getAttribute(htmlAttr);
+          if (htmlContent) {
+            el.innerHTML = htmlContent;
+            return;
           }
-        } else {
-          el.textContent = el.getAttribute(attr);
+          // Fallback for highlight-name elements without html attrs
+          if (el.querySelector('.highlight-name') || el.classList.contains('stylist-name')) {
+            if (currentLang === 'en') {
+              el.innerHTML = 'Styled by <span class="highlight-name">Bernardo</span>';
+            } else {
+              el.innerHTML = 'Estilizado por <span class="highlight-name">Bernardo</span>';
+            }
+            return;
+          }
         }
+        var attr = currentLang === 'en' ? 'data-en' : 'data-pt';
+        el.textContent = el.getAttribute(attr);
       });
 
-      // Update language button text
-      const enBtn = document.querySelector('.lang-text-en');
-      const ptBtn = document.querySelector('.lang-text-pt');
+      // Update language button active states
+      var enBtn = document.getElementById('langEN');
+      var ptBtn = document.getElementById('langPT');
       if (currentLang === 'en') {
-        enBtn?.classList.remove('hidden');
-        ptBtn?.classList.add('hidden');
+        enBtn.classList.add('active');
+        ptBtn.classList.remove('active');
       } else {
-        enBtn?.classList.add('hidden');
-        ptBtn?.classList.remove('hidden');
+        ptBtn.classList.add('active');
+        enBtn.classList.remove('active');
       }
 
-      // Update html lang attribute
+      // Update html lang attribute for SEO/accessibility
       document.documentElement.lang = currentLang;
     }
 
+    // --- Contact Form ---
     function handleSubmit(event) {
       event.preventDefault();
       alert(currentLang === 'en' ? 'Thank you! We will contact you soon.' : 'Obrigado! Entraremos em contato em breve.');
       event.target.reset();
     }
 
-    // Initialize
+    // --- Initialize ---
     updateLanguage();
 
-    // Add smooth scroll behavior
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+      anchor.addEventListener('click', function(e) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        closeMenu();
+        var target = document.querySelector(this.getAttribute('href'));
         if (target) {
           target.scrollIntoView({ behavior: 'smooth' });
         }
