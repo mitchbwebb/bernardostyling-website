@@ -199,35 +199,99 @@
       color: var(--color-gold);
     }
 
-    /* Language Switcher - two clearly separate buttons */
+    /* Language Switcher - pill toggle */
     .lang-switcher {
       display: flex;
       align-items: center;
-      gap: 6px;
+      position: relative;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--color-gold);
+      border-radius: 20px;
+      overflow: hidden;
+      height: 32px;
     }
 
     .lang-btn {
-      background: transparent;
-      border: 1px solid var(--color-gold);
+      position: relative;
+      z-index: 1;
+      background: none;
+      border: none;
       color: var(--color-silver);
-      padding: 6px 12px;
+      padding: 0 14px;
+      height: 100%;
       cursor: pointer;
       font-family: var(--font-secondary);
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 1px;
-      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      transition: color 0.25s ease;
       -webkit-tap-highlight-color: transparent;
       -webkit-appearance: none;
       appearance: none;
       touch-action: manipulation;
     }
 
-    .lang-btn.active {
+    .lang-btn[aria-pressed="true"] {
+      color: var(--color-black);
+    }
+
+    .lang-slider {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: calc(50% - 2px);
+      height: calc(100% - 4px);
+      background: var(--color-gold);
+      border-radius: 18px;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    .lang-switcher[data-active="en"] .lang-slider {
+      transform: translateX(0);
+    }
+
+    .lang-switcher[data-active="pt"] .lang-slider {
+      transform: translateX(100%);
+    }
+
+    /* Notification Bar */
+    .notification-bar {
       background: var(--color-gold);
       color: var(--color-black);
-      font-weight: 700;
-      border-color: var(--color-gold);
+      text-align: center;
+      padding: 8px 40px 8px 16px;
+      font-family: var(--font-secondary);
+      font-size: 13px;
+      font-weight: 500;
+      position: relative;
+      z-index: 1001;
+      line-height: 1.4;
+    }
+
+    .notification-bar.is-hidden {
+      display: none;
+    }
+
+    .notification-bar-close {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--color-black);
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 4px 8px;
+      opacity: 0.7;
+      transition: opacity 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .notification-bar-close:hover {
+      opacity: 1;
     }
 
     /* Hamburger - transforms to X when open */
@@ -733,6 +797,11 @@
   <body>
 
   
+  <div class="notification-bar" id="notificationBar" role="banner">
+    <span data-en="Welcome! This site is available in English and Portuguese." data-pt="Bem-vindo! Este site está disponível em Português e Inglês.">Bem-vindo! Este site está disponível em Português e Inglês.</span>
+    <button class="notification-bar-close" id="notificationClose" type="button" aria-label="Close">&times;</button>
+  </div>
+
   <nav>
     <div class="nav-bar">
       <a href="#" class="logo" onclick="navScrollTo('home'); return false;">BERNARDO STYLING</a>
@@ -742,9 +811,10 @@
           <a href="#locations" data-en="Locations" data-pt="Localizações" onclick="navScrollTo('locations'); return false;">Localizações</a>
           <a href="#contact" data-en="Contact" data-pt="Contato" onclick="navScrollTo('contact'); return false;">Contato</a>
         </div>
-        <div class="lang-switcher">
-          <button class="lang-btn" id="langEN" onclick="setLanguage('en')" type="button">EN</button>
-          <button class="lang-btn active" id="langPT" onclick="setLanguage('pt')" type="button">PT</button>
+        <div class="lang-switcher" id="langSwitcher" data-active="pt" role="radiogroup" aria-label="Language">
+          <span class="lang-slider"></span>
+          <button class="lang-btn" id="langEN" type="button" role="radio" aria-pressed="false">EN</button>
+          <button class="lang-btn" id="langPT" type="button" role="radio" aria-pressed="true">PT</button>
         </div>
         <button class="hamburger" id="hamburger" onclick="toggleMenu()" type="button" aria-label="Menu">
           <span></span>
@@ -871,90 +941,175 @@
   </footer>
 
   <script>
-    var currentLang = localStorage.getItem('language') || 'pt';
+    (function() {
+      'use strict';
 
-    function toggleMenu() {
-      var nav = document.getElementById('mobileNav');
-      var btn = document.getElementById('hamburger');
-      if (nav.classList.contains('open')) {
-        nav.classList.remove('open');
-        btn.classList.remove('is-open');
-      } else {
-        nav.classList.add('open');
-        btn.classList.add('is-open');
+      /* -------------------------------------------------------
+         1. LANGUAGE SWITCHER — complete rewrite
+         Default: Portuguese. Only switch to English on explicit
+         user action or English browser locale.
+      ------------------------------------------------------- */
+
+      // Determine initial language: stored preference > browser locale > Portuguese fallback
+      function detectInitialLanguage() {
+        var stored = localStorage.getItem('bs_language');
+        if (stored === 'en' || stored === 'pt') return stored;
+
+        // Check browser locale — only auto-switch to 'en' if clearly English
+        var browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+        if (browserLang.indexOf('en') === 0) return 'en';
+
+        // Fallback is always Portuguese
+        return 'pt';
       }
-    }
 
-    function closeMenu() {
-      var nav = document.getElementById('mobileNav');
-      var btn = document.getElementById('hamburger');
-      if (nav) nav.classList.remove('open');
-      if (btn) btn.classList.remove('is-open');
-    }
+      var currentLang = detectInitialLanguage();
 
-    function navScrollTo(id) {
-      closeMenu();
-      var el = document.getElementById(id);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }
+      // Cache DOM references once
+      var langSwitcher = document.getElementById('langSwitcher');
+      var langEN = document.getElementById('langEN');
+      var langPT = document.getElementById('langPT');
 
-    function setLanguage(lang) {
-      currentLang = lang;
-      localStorage.setItem('language', currentLang);
-      updateLanguage();
-    }
+      function setLanguage(lang) {
+        if (lang !== 'en' && lang !== 'pt') return;
+        currentLang = lang;
+        localStorage.setItem('bs_language', lang);
+        renderLanguage();
+      }
 
-    function updateLanguage() {
-      var elements = document.querySelectorAll('[data-en][data-pt]');
-      for (var i = 0; i < elements.length; i++) {
-        var el = elements[i];
-        if (el.hasAttribute('data-has-html')) {
-          var htmlAttr = currentLang === 'en' ? 'data-en-html' : 'data-pt-html';
-          var htmlContent = el.getAttribute(htmlAttr);
-          if (htmlContent) {
-            el.innerHTML = htmlContent;
+      function renderLanguage() {
+        // Update all translatable elements
+        var elements = document.querySelectorAll('[data-en][data-pt]');
+        for (var i = 0; i < elements.length; i++) {
+          var el = elements[i];
+          if (el.hasAttribute('data-has-html')) {
+            var htmlAttr = currentLang === 'en' ? 'data-en-html' : 'data-pt-html';
+            var htmlContent = el.getAttribute(htmlAttr);
+            if (htmlContent) {
+              el.innerHTML = htmlContent;
+            } else {
+              // Fallback for stylist name element
+              el.innerHTML = currentLang === 'en'
+                ? 'Styled by <span class="highlight-name">Bernardo</span>'
+                : 'Estilizado por <span class="highlight-name">Bernardo</span>';
+            }
             continue;
           }
-          if (currentLang === 'en') {
-            el.innerHTML = 'Styled by <span class="highlight-name">Bernardo</span>';
-          } else {
-            el.innerHTML = 'Estilizado por <span class="highlight-name">Bernardo</span>';
-          }
-          continue;
+          var text = el.getAttribute(currentLang === 'en' ? 'data-en' : 'data-pt');
+          if (text !== null) el.textContent = text;
         }
-        el.textContent = el.getAttribute(currentLang === 'en' ? 'data-en' : 'data-pt');
+
+        // Update switcher UI — aria-pressed + data-active drive all visuals
+        if (langSwitcher && langEN && langPT) {
+          langSwitcher.setAttribute('data-active', currentLang);
+          langEN.setAttribute('aria-pressed', String(currentLang === 'en'));
+          langPT.setAttribute('aria-pressed', String(currentLang === 'pt'));
+        }
+
+        // SEO: update html lang attribute
+        document.documentElement.lang = currentLang;
       }
 
-      var enBtn = document.getElementById('langEN');
-      var ptBtn = document.getElementById('langPT');
-      if (enBtn && ptBtn) {
-        if (currentLang === 'en') {
-          enBtn.classList.add('active');
-          ptBtn.classList.remove('active');
-        } else {
-          ptBtn.classList.add('active');
-          enBtn.classList.remove('active');
+      // Attach click handlers via addEventListener (not inline onclick)
+      if (langEN) {
+        langEN.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          setLanguage('en');
+        });
+      }
+      if (langPT) {
+        langPT.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          setLanguage('pt');
+        });
+      }
+
+      // Initial render
+      renderLanguage();
+
+      /* -------------------------------------------------------
+         2. NOTIFICATION BAR — complete rewrite
+         Dismissible, persisted in localStorage.
+      ------------------------------------------------------- */
+
+      var notifBar = document.getElementById('notificationBar');
+      var notifClose = document.getElementById('notificationClose');
+
+      function initNotificationBar() {
+        if (!notifBar) return;
+
+        // If previously dismissed, hide immediately
+        if (localStorage.getItem('bs_notif_dismissed') === '1') {
+          notifBar.classList.add('is-hidden');
+          return;
+        }
+
+        // Wire up close button
+        if (notifClose) {
+          notifClose.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            notifBar.classList.add('is-hidden');
+            localStorage.setItem('bs_notif_dismissed', '1');
+          });
         }
       }
 
-      document.documentElement.lang = currentLang;
-    }
+      initNotificationBar();
 
-    function handleSubmit(event) {
-      event.preventDefault();
-      alert(currentLang === 'en' ? 'Thank you! We will contact you soon.' : 'Obrigado! Entraremos em contato em breve.');
-      event.target.reset();
-    }
+      /* -------------------------------------------------------
+         3. MOBILE MENU (unchanged logic, cleaner structure)
+      ------------------------------------------------------- */
 
-    // Close mobile menu when tapping outside nav
-    document.addEventListener('click', function(e) {
-      var nav = document.querySelector('nav');
-      if (nav && !nav.contains(e.target)) {
+      function toggleMenu() {
+        var nav = document.getElementById('mobileNav');
+        var btn = document.getElementById('hamburger');
+        if (!nav || !btn) return;
+        var isOpen = nav.classList.contains('open');
+        nav.classList.toggle('open', !isOpen);
+        btn.classList.toggle('is-open', !isOpen);
+      }
+
+      function closeMenu() {
+        var nav = document.getElementById('mobileNav');
+        var btn = document.getElementById('hamburger');
+        if (nav) nav.classList.remove('open');
+        if (btn) btn.classList.remove('is-open');
+      }
+
+      // Expose to inline onclick handlers in HTML
+      window.toggleMenu = toggleMenu;
+      window.closeMenu = closeMenu;
+
+      window.navScrollTo = function(id) {
         closeMenu();
-      }
-    });
+        var el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      };
 
-    updateLanguage();
+      // Close mobile menu when tapping outside nav
+      document.addEventListener('click', function(e) {
+        var nav = document.querySelector('nav');
+        if (nav && !nav.contains(e.target)) {
+          closeMenu();
+        }
+      });
+
+      /* -------------------------------------------------------
+         4. FORM HANDLER
+      ------------------------------------------------------- */
+
+      window.handleSubmit = function(event) {
+        event.preventDefault();
+        alert(currentLang === 'en'
+          ? 'Thank you! We will contact you soon.'
+          : 'Obrigado! Entraremos em contato em breve.');
+        event.target.reset();
+      };
+
+    })();
   </script>
 </body>
 </html>
