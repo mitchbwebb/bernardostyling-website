@@ -159,7 +159,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.2rem 5%;
+      padding: 1rem 5%;
       max-width: 1400px;
       margin: 0 auto;
     }
@@ -199,96 +199,133 @@
       color: var(--color-gold);
     }
 
-    /* Language Switcher */
+    /* Language Switcher - two clearly separate buttons */
     .lang-switcher {
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
     }
 
     .lang-btn {
-      background: none;
+      background: transparent;
       border: 1px solid var(--color-gold);
       color: var(--color-silver);
-      padding: 5px 10px;
+      padding: 6px 12px;
       cursor: pointer;
       font-family: var(--font-secondary);
-      font-size: 12px;
-      font-weight: 400;
+      font-size: 13px;
+      font-weight: 500;
       letter-spacing: 1px;
-      transition: var(--transition);
-      border-radius: 3px;
+      border-radius: 4px;
       -webkit-tap-highlight-color: transparent;
+      -webkit-appearance: none;
+      appearance: none;
+      touch-action: manipulation;
     }
 
     .lang-btn.active {
       background: var(--color-gold);
       color: var(--color-black);
-      font-weight: 600;
+      font-weight: 700;
       border-color: var(--color-gold);
     }
 
-    /* Hamburger */
+    /* Hamburger - transforms to X when open */
     .hamburger {
       display: none;
+      width: 44px;
+      height: 44px;
       cursor: pointer;
       background: none;
       border: none;
-      padding: 8px;
+      padding: 10px;
+      position: relative;
       -webkit-tap-highlight-color: transparent;
+      -webkit-appearance: none;
+      appearance: none;
+      touch-action: manipulation;
     }
 
-    .hamburger-line {
+    .hamburger span {
       display: block;
       width: 24px;
       height: 2px;
       background: var(--color-white);
-      margin: 5px 0;
-      transition: var(--transition);
+      position: absolute;
+      left: 10px;
+      transition: all 0.3s ease;
     }
 
-    /* Mobile dropdown - sits inside nav, below nav-bar */
+    .hamburger span:nth-child(1) { top: 13px; }
+    .hamburger span:nth-child(2) { top: 21px; }
+    .hamburger span:nth-child(3) { top: 29px; }
+
+    /* X state */
+    .hamburger.is-open span:nth-child(1) {
+      top: 21px;
+      transform: rotate(45deg);
+      background: var(--color-gold);
+    }
+    .hamburger.is-open span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.is-open span:nth-child(3) {
+      top: 21px;
+      transform: rotate(-45deg);
+      background: var(--color-gold);
+    }
+
+    /* Mobile dropdown - inside nav, drops below bar */
     .mobile-nav {
-      display: none;
-      background: rgba(0, 0, 0, 0.98);
-      border-top: 1px solid rgba(200, 145, 22, 0.3);
-      padding: 2rem 5%;
-      text-align: center;
+      max-height: 0;
+      overflow: hidden;
+      background: var(--color-black);
+      transition: max-height 0.35s ease;
     }
 
     .mobile-nav.open {
-      display: block;
+      max-height: 300px;
+      border-top: 1px solid var(--color-gold);
     }
 
     .mobile-nav a {
       display: block;
       color: var(--color-white);
       text-decoration: none;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 400;
       letter-spacing: 2px;
       text-transform: uppercase;
-      padding: 1rem 0;
-      transition: var(--transition);
+      padding: 1.2rem 5%;
+      border-bottom: 1px solid rgba(200, 145, 22, 0.15);
+      transition: background 0.2s ease, color 0.2s ease;
     }
 
+    .mobile-nav a:last-child {
+      border-bottom: none;
+    }
+
+    .mobile-nav a:active,
     .mobile-nav a:hover {
+      background: rgba(200, 145, 22, 0.1);
       color: var(--color-gold);
     }
 
     /* Hero Section */
     .hero {
       min-height: 100vh;
-display: flex;      align-items: center;
+      display: flex;
+      align-items: center;
       justify-content: center;
       background: linear-gradient(135deg, var(--color-black) 0%, var(--color-gray-dark) 100%);
       position: relative;
       overflow: hidden;
       padding: 0 5%;
-        margin-top: 0;
-          }
+      margin-top: 0;
+    }
 
-    .hero-content {      max-width: 1200px;
+    .hero-content {
+      max-width: 1200px;
       text-align: center;
       z-index: 1;
     }
@@ -710,9 +747,9 @@ display: flex;      align-items: center;
           <button class="lang-btn active" id="langPT" onclick="setLanguage('pt')" type="button">PT</button>
         </div>
         <button class="hamburger" id="hamburger" onclick="toggleMenu()" type="button" aria-label="Menu">
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
       </div>
     </div>
@@ -838,16 +875,21 @@ display: flex;      align-items: center;
 
     function toggleMenu() {
       var nav = document.getElementById('mobileNav');
+      var btn = document.getElementById('hamburger');
       if (nav.classList.contains('open')) {
         nav.classList.remove('open');
+        btn.classList.remove('is-open');
       } else {
         nav.classList.add('open');
+        btn.classList.add('is-open');
       }
     }
 
     function closeMenu() {
       var nav = document.getElementById('mobileNav');
+      var btn = document.getElementById('hamburger');
       if (nav) nav.classList.remove('open');
+      if (btn) btn.classList.remove('is-open');
     }
 
     function navScrollTo(id) {
