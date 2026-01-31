@@ -123,6 +123,8 @@
       --font-primary: 'EB Garamond', serif;
       --font-secondary: 'Montserrat', sans-serif;
       --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      --header-height: 60px;
+      --notif-height: 36px;
     }
 
     * {
@@ -143,15 +145,64 @@
       overflow-x: hidden;
     }
 
-    /* Navigation */
-    nav {
+    /* =========================================
+       SITE HEADER — notification + nav wrapper
+       Fixed at top, stacks vertically
+       ========================================= */
+    .site-header {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
+      z-index: 1000;
+    }
+
+    /* Notification Bar */
+    .notification-bar {
+      background: var(--color-gold);
+      color: var(--color-black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 48px 8px 16px;
+      font-family: var(--font-secondary);
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.3;
+      position: relative;
+      min-height: var(--notif-height);
+    }
+
+    .notification-bar.is-hidden {
+      display: none;
+    }
+
+    .notification-bar-close {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--color-black);
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 6px 10px;
+      opacity: 0.6;
+      transition: opacity 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .notification-bar-close:hover,
+    .notification-bar-close:active {
+      opacity: 1;
+    }
+
+    /* Navigation */
+    .main-nav {
       background: rgba(0, 0, 0, 0.95);
       backdrop-filter: blur(10px);
-      z-index: 1000;
       border-bottom: 1px solid var(--color-gold);
     }
 
@@ -159,18 +210,20 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 5%;
+      padding: 0 5%;
+      height: var(--header-height);
       max-width: 1400px;
       margin: 0 auto;
     }
 
     .logo {
       font-family: var(--font-primary);
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 600;
       color: var(--color-white);
       letter-spacing: 3px;
       text-decoration: none;
+      white-space: nowrap;
     }
 
     .nav-controls {
@@ -199,16 +252,18 @@
       color: var(--color-gold);
     }
 
-    /* Language Switcher - pill toggle */
+    /* =========================================
+       LANGUAGE SWITCHER — pill toggle
+       ========================================= */
     .lang-switcher {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       position: relative;
       background: rgba(255,255,255,0.08);
       border: 1px solid var(--color-gold);
       border-radius: 20px;
-      overflow: hidden;
-      height: 32px;
+      height: 30px;
+      flex-shrink: 0;
     }
 
     .lang-btn {
@@ -221,7 +276,7 @@
       height: 100%;
       cursor: pointer;
       font-family: var(--font-secondary);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       letter-spacing: 1.5px;
       transition: color 0.25s ease;
@@ -229,6 +284,7 @@
       -webkit-appearance: none;
       appearance: none;
       touch-action: manipulation;
+      line-height: 30px;
     }
 
     .lang-btn[aria-pressed="true"] {
@@ -255,46 +311,9 @@
       transform: translateX(100%);
     }
 
-    /* Notification Bar */
-    .notification-bar {
-      background: var(--color-gold);
-      color: var(--color-black);
-      text-align: center;
-      padding: 8px 40px 8px 16px;
-      font-family: var(--font-secondary);
-      font-size: 13px;
-      font-weight: 500;
-      position: relative;
-      z-index: 1001;
-      line-height: 1.4;
-    }
-
-    .notification-bar.is-hidden {
-      display: none;
-    }
-
-    .notification-bar-close {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: var(--color-black);
-      font-size: 20px;
-      line-height: 1;
-      cursor: pointer;
-      padding: 4px 8px;
-      opacity: 0.7;
-      transition: opacity 0.2s ease;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .notification-bar-close:hover {
-      opacity: 1;
-    }
-
-    /* Hamburger - transforms to X when open */
+    /* =========================================
+       HAMBURGER — transforms to X when open
+       ========================================= */
     .hamburger {
       display: none;
       width: 44px;
@@ -324,7 +343,6 @@
     .hamburger span:nth-child(2) { top: 21px; }
     .hamburger span:nth-child(3) { top: 29px; }
 
-    /* X state */
     .hamburger.is-open span:nth-child(1) {
       top: 21px;
       transform: rotate(45deg);
@@ -339,7 +357,9 @@
       background: var(--color-gold);
     }
 
-    /* Mobile dropdown - inside nav, drops below bar */
+    /* =========================================
+       MOBILE NAV — clean dropdown inside nav
+       ========================================= */
     .mobile-nav {
       max-height: 0;
       overflow: hidden;
@@ -348,7 +368,7 @@
     }
 
     .mobile-nav.open {
-      max-height: 300px;
+      max-height: 400px;
       border-top: 1px solid var(--color-gold);
     }
 
@@ -360,22 +380,36 @@
       font-weight: 400;
       letter-spacing: 2px;
       text-transform: uppercase;
-      padding: 1.2rem 5%;
-      border-bottom: 1px solid rgba(200, 145, 22, 0.15);
+      padding: 1rem 5%;
+      border-bottom: 1px solid rgba(200,145,22,0.15);
       transition: background 0.2s ease, color 0.2s ease;
-    }
-
-    .mobile-nav a:last-child {
-      border-bottom: none;
     }
 
     .mobile-nav a:active,
     .mobile-nav a:hover {
-      background: rgba(200, 145, 22, 0.1);
+      background: rgba(200,145,22,0.1);
       color: var(--color-gold);
     }
 
-    /* Hero Section */
+    /* Language row inside mobile nav */
+    .mobile-lang-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 5%;
+      gap: 12px;
+    }
+
+    .mobile-lang-row .mobile-lang-label {
+      color: var(--color-silver);
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* =========================================
+       HERO
+       ========================================= */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -385,7 +419,6 @@
       position: relative;
       overflow: hidden;
       padding: 0 5%;
-      margin-top: 0;
     }
 
     .hero-content {
@@ -439,11 +472,12 @@
       background: transparent;
       color: var(--color-gold);
       transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(200, 145, 22, 0.3);
+      box-shadow: 0 10px 30px rgba(200,145,22,0.3);
     }
 
-  
-    /* Section Styles */
+    /* =========================================
+       SECTIONS
+       ========================================= */
     section {
       padding: 8rem 5%;
     }
@@ -467,45 +501,45 @@
       font-weight: 300;
     }
 
+    /* Featured */
+    .featured {
+      background: var(--color-black);
+      padding: 3rem 5%;
+      text-align: center;
+    }
+
+    .featured-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .featured h2 {
+      color: var(--color-gold);
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .featured p {
+      color: var(--color-silver);
+      line-height: 1.6;
+      margin-bottom: 0.8rem;
+    }
+
+    .photo-credit {
+      font-size: 0.75rem;
+      color: var(--color-gray-dark);
+      margin: 0.5rem 0;
+    }
+
+    .featured img {
+      max-width: 500px;
+      width: 100%;
+      border-radius: 8px;
+      margin: 1rem auto;
+      display: block;
+    }
+
     /* Services */
-
-        /* Featured Section */
-        .featured {
-                  background: var(--color-black);
-                  padding: 3rem 5%;
-                  text-align: center;
-              }
-
-        .featured-content {
-                  max-width: 900px;
-                  margin: 0 auto;
-              }
-
-        .featured h2 {
-                  color: var(--color-gold);
-                  font-size: 2rem;
-                  margin-bottom: 0.5rem;
-              }
-
-        .featured p {
-                  color: var(--color-silver);
-                  line-height: 1.6;
-                  margin-bottom: 0.8rem;
-              }
-
-        .photo-credit {
-                  font-size: 0.75rem;
-                  color: var(--color-gray-dark);
-                  margin: 0.5rem 0;
-              }
-
-        .featured img {
-                  max-width: 500px;
-                  width: 100%;
-                  border-radius: 8px;
-                  margin: 1rem auto;
-                  display: block;
-              }
     .services {
       background: var(--color-gray-light);
     }
@@ -546,7 +580,7 @@
 
     .service-card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
     }
 
     .service-icon {
@@ -567,7 +601,7 @@
       font-size: 0.95rem;
     }
 
-    /* Contact & Responsive */
+    /* Contact */
     .contact {
       background: var(--color-black);
       color: var(--color-white);
@@ -601,7 +635,7 @@
     .form-group textarea {
       width: 100%;
       padding: 1rem;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255,255,255,0.05);
       border: 1px solid var(--color-silver);
       color: var(--color-white);
       font-family: var(--font-secondary);
@@ -613,7 +647,7 @@
     .form-group textarea:focus {
       outline: none;
       border-color: var(--color-gold);
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255,255,255,0.1);
     }
 
     .form-group textarea {
@@ -641,26 +675,103 @@
       color: var(--color-gold);
     }
 
-    /* Animations */
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* Stylist Name Highlight */
+    .stylist-name {
+      font-size: 1.2rem;
+      color: var(--color-gray-light);
+      margin: 1rem 0;
+      text-align: center;
+      font-family: var(--font-secondary);
     }
 
-    /* Responsive Design */
+    .highlight-name {
+      color: var(--color-gold);
+      font-weight: 600;
+      font-size: 1.4rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, var(--color-gold), #fff, var(--color-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3s infinite linear;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    /* Vision & Mission */
+    #vision-mission {
+      padding: 5rem 2rem;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    }
+
+    .vision-mission-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+
+    .vision-card, .mission-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--color-gold);
+      border-radius: 15px;
+      padding: 2.5rem;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .vision-card::before, .mission-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--color-gold), transparent);
+    }
+
+    .vision-card:hover, .mission-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--color-white);
+      box-shadow: 0 15px 40px rgba(201,145,22,0.3);
+    }
+
+    .vision-card h3, .mission-card h3 {
+      color: var(--color-gold);
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+
+    .vision-card p, .mission-card p {
+      color: var(--color-gray-light);
+      font-size: 1.1rem;
+      line-height: 1.8;
+      font-family: var(--font-secondary);
+    }
+
+    /* =========================================
+       RESPONSIVE — mobile
+       ========================================= */
     @media (max-width: 768px) {
+      :root {
+        --header-height: 52px;
+      }
+
       .nav-bar {
-        padding: 0.8rem 5%;
+        padding: 0 4%;
       }
 
       .logo {
-        font-size: 1.1rem;
+        font-size: 1rem;
         letter-spacing: 2px;
       }
 
@@ -670,6 +781,11 @@
 
       .hamburger {
         display: block;
+      }
+
+      /* Hide nav-bar lang switcher on mobile; show inside mobile-nav instead */
+      .nav-controls > .lang-switcher {
+        display: none;
       }
 
       .monogram {
@@ -693,148 +809,89 @@
         flex-direction: column;
         gap: 2rem;
       }
-    }
 
-      /* Stylist Name Highlight */
-    .stylist-name {
-        font-size: 1.2rem;
-        color: var(--color-gray-light);
-        margin: 1rem 0;
-        text-align: center;
-        font-family: 'Montserrat', sans-serif;
-    }
-    
-    .highlight-name {
-        color: var(--color-gold);
-        font-weight: 600;
-        font-size: 1.4rem;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        background: linear-gradient(90deg, var(--color-gold), #fff, var(--color-gold));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        animation: shimmer 3s infinite linear;
-    }
-    
-    @keyframes shimmer {
-        0% { background-position: -200% center; }
-        100% { background-position: 200% center; }
-    }
+      #vision-mission {
+        padding: 3rem 1rem;
+      }
 
-      /* Vision & Mission Section */
-    #vision-mission {
-        padding: 5rem 2rem;
-        background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-        position: relative;
-    }
-    
-    .vision-mission-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 3rem;
-        margin-top: 3rem;
-    }
-    
-    .vision-card, .mission-card {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid var(--color-gold);
-        border-radius: 15px;
-        padding: 2.5rem;
-        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .vision-card::before, .mission-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 3px;
-        background: linear-gradient(90deg, var(--color-gold), transparent);
-    }
-    
-    .vision-card:hover, .mission-card:hover {
-        transform: translateY(-8px);
-        border-color: var(--color-white);
-        box-shadow: 0 15px 40px rgba(201, 145, 22, 0.3);
-    }
-    
-    .vision-card h3, .mission-card h3 {
-        color: var(--color-gold);
-        font-size: 1.5rem;
-        margin-bottom: 1.5rem;
-        font-weight: 500;
-        letter-spacing: 1px;
-    }
-    
-    .vision-card p, .mission-card p {
-        color: var(--color-gray-light);
-        font-size: 1.1rem;
-        line-height: 1.8;
-        font-family: 'Montserrat', sans-serif;
-    }
-    
-    @media (max-width: 768px) {
-        #vision-mission {
-            padding: 3rem 1rem;
-        }
-        
-        .vision-mission-container {
-            gap: 2rem;
-        }
-        
-        .vision-card, .mission-card {
-            padding: 2rem;
-        }
-    }
-        </style>
-  </head>
-  <body>
+      .vision-mission-container {
+        gap: 2rem;
+      }
 
-  
-  <div class="notification-bar" id="notificationBar" role="banner">
-    <span data-en="Welcome! This site is available in English and Portuguese." data-pt="Bem-vindo! Este site está disponível em Português e Inglês.">Bem-vindo! Este site está disponível em Português e Inglês.</span>
-    <button class="notification-bar-close" id="notificationClose" type="button" aria-label="Close">&times;</button>
-  </div>
+      .vision-card, .mission-card {
+        padding: 2rem;
+      }
 
-  <nav>
-    <div class="nav-bar">
-      <a href="#" class="logo" onclick="navScrollTo('home'); return false;">BERNARDO STYLING</a>
-      <div class="nav-controls">
-        <div class="desktop-links">
-          <a href="#services" data-en="Services" data-pt="Serviços" onclick="navScrollTo('services'); return false;">Serviços</a>
-          <a href="#locations" data-en="Locations" data-pt="Localizações" onclick="navScrollTo('locations'); return false;">Localizações</a>
-          <a href="#contact" data-en="Contact" data-pt="Contato" onclick="navScrollTo('contact'); return false;">Contato</a>
+      .notification-bar {
+        font-size: 11px;
+        padding: 6px 40px 6px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =============================================
+       SITE HEADER: notification bar + nav
+       Both live inside one fixed container
+       ============================================= -->
+  <header class="site-header" id="siteHeader">
+    <!-- Notification Bar -->
+    <div class="notification-bar" id="notificationBar" role="banner">
+      <span id="notifText" data-en="Welcome! This site is available in English and Portuguese." data-pt="Bem-vindo! Este site esta disponivel em Portugues e Ingles.">Bem-vindo! Este site esta disponivel em Portugues e Ingles.</span>
+      <button class="notification-bar-close" id="notificationClose" type="button" aria-label="Close">&times;</button>
+    </div>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+      <div class="nav-bar">
+        <a href="#" class="logo" onclick="navScrollTo('home'); return false;">BERNARDO STYLING</a>
+        <div class="nav-controls">
+          <div class="desktop-links">
+            <a href="#services" data-en="Services" data-pt="Servicos" onclick="navScrollTo('services'); return false;">Servicos</a>
+            <a href="#locations" data-en="Locations" data-pt="Localizacoes" onclick="navScrollTo('locations'); return false;">Localizacoes</a>
+            <a href="#contact" data-en="Contact" data-pt="Contato" onclick="navScrollTo('contact'); return false;">Contato</a>
+          </div>
+          <!-- Desktop language switcher (hidden on mobile via CSS) -->
+          <div class="lang-switcher" id="langSwitcher" data-active="pt" role="radiogroup" aria-label="Language">
+            <span class="lang-slider"></span>
+            <button class="lang-btn" id="langEN" type="button" role="radio" aria-pressed="false">EN</button>
+            <button class="lang-btn" id="langPT" type="button" role="radio" aria-pressed="true">PT</button>
+          </div>
+          <button class="hamburger" id="hamburger" type="button" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
-        <div class="lang-switcher" id="langSwitcher" data-active="pt" role="radiogroup" aria-label="Language">
-          <span class="lang-slider"></span>
-          <button class="lang-btn" id="langEN" type="button" role="radio" aria-pressed="false">EN</button>
-          <button class="lang-btn" id="langPT" type="button" role="radio" aria-pressed="true">PT</button>
-        </div>
-        <button class="hamburger" id="hamburger" onclick="toggleMenu()" type="button" aria-label="Menu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
       </div>
-    </div>
-    <div class="mobile-nav" id="mobileNav">
-      <a href="#services" data-en="Services" data-pt="Serviços" onclick="navScrollTo('services'); return false;">Serviços</a>
-      <a href="#locations" data-en="Locations" data-pt="Localizações" onclick="navScrollTo('locations'); return false;">Localizações</a>
-      <a href="#contact" data-en="Contact" data-pt="Contato" onclick="navScrollTo('contact'); return false;">Contato</a>
-    </div>
-  </nav>
+
+      <!-- Mobile dropdown nav -->
+      <div class="mobile-nav" id="mobileNav">
+        <a href="#services" data-en="Services" data-pt="Servicos" onclick="navScrollTo('services'); return false;">Servicos</a>
+        <a href="#locations" data-en="Locations" data-pt="Localizacoes" onclick="navScrollTo('locations'); return false;">Localizacoes</a>
+        <a href="#contact" data-en="Contact" data-pt="Contato" onclick="navScrollTo('contact'); return false;">Contato</a>
+        <!-- Mobile language switcher row -->
+        <div class="mobile-lang-row">
+          <span class="mobile-lang-label" data-en="Language:" data-pt="Idioma:">Idioma:</span>
+          <div class="lang-switcher" id="langSwitcherMobile" data-active="pt" role="radiogroup" aria-label="Language">
+            <span class="lang-slider"></span>
+            <button class="lang-btn" id="langENMobile" type="button" role="radio" aria-pressed="false">EN</button>
+            <button class="lang-btn" id="langPTMobile" type="button" role="radio" aria-pressed="true">PT</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Spacer to push content below fixed header -->
+  <div id="headerSpacer"></div>
 
   <section class="hero" id="home">
     <div class="hero-content">
       <div class="monogram">B</div>
       <h1 data-en="BERNARDO STYLING" data-pt="BERNARDO STYLING">BERNARDO STYLING</h1>
-      <p class="hero-tagline" data-en="Where Personal Style Becomes Iconic Identity" data-pt="Onde o Estilo Pessoal se Transforma em Identidade Icônica">Onde o Estilo Pessoal se Transforma em Identidade Icônica</p>
+      <p class="hero-tagline" data-en="Where Personal Style Becomes Iconic Identity" data-pt="Onde o Estilo Pessoal se Transforma em Identidade Iconica">Onde o Estilo Pessoal se Transforma em Identidade Iconica</p>
       <a href="#contact" class="cta-primary" data-en="Book Private Consultation" data-pt="Agende Consultoria Privada">Agende Consultoria Privada</a>
     </div>
   </section>
@@ -845,38 +902,37 @@
       <p data-en="Gil do Vigor at Globo's 60th Anniversary Party" data-pt="Gil do Vigor na festa de 60 anos da Globo">Gil do Vigor na festa de 60 anos da Globo</p>
       <p class="stylist-name" data-en="Styled by Bernardo" data-pt="Estilizado por Bernardo" data-has-html="true">Styled by <span class="highlight-name">Bernardo</span></p>
       <p data-en="Bernardo styling showcased at one of Brazil's most prestigious fashion events" data-pt="Styling de Bernardo destaque em um dos eventos de moda mais prestigiados do Brasil">Styling de Bernardo destaque em um dos eventos de moda mais prestigiados do Brasil</p>
-      <div class="photo-credit" data-en="Photo Credit: Gil do Vigor at Globo's 60th Anniversary Party - Source: GQ Brasil" data-pt="Crédito da Foto: Gil do Vigor na festa de 60 anos da Globo - Foto: Divulgação / GQ Brasil">Crédito da Foto: Gil do Vigor na festa de 60 anos da Globo - Foto: Divulgação / GQ Brasil</div>
-      <p data-en="For the special occasion, Gil opted for a designer look valued at R$ 18,300. In an exclusive interview with GQ Brazil, he shares details of his choice, made under the supervision of his personal stylist, Eddy Bernardo. 'I wanted something elegant, refined, discreet, but that, at the same time, represented the grandeur of this event, which deserved a look chosen with great care.' Gil wears a full Armani look (R$ 11,650) and Dolce & Gabbana shoes (R$ 6,700)." data-pt="Para a ocasião especial, Gil optou por um look de grife, avaliado em R$ 18.300. Em entrevista exclusiva à GQ Brasil, ele compartilha detalhes de sua escolha, feita sob supervisão de seu estilista pessoal, Eddy Bernardo. 'Eu queria algo elegante, refinado, discreto, mas que, ao mesmo tempo, representasse a grandiosidade desse evento, que merecia um look escolhido com muito cuidado.' Gil veste look completo da Armani (R$ 11.650) e sapatos Dolce & Gabbana (R$ 6.700)." data-has-html="true" data-en-html="For the special occasion, Gil opted for a designer look valued at R$ 18,300. In an exclusive interview with GQ Brazil, he shares details of his choice, made under the supervision of his personal stylist, <strong>Eddy Bernardo</strong>. &quot;I wanted something elegant, refined, discreet, but that, at the same time, represented the grandeur of this event, which deserved a look chosen with great care.&quot; Gil wears a full Armani look (R$ 11,650) and Dolce &amp; Gabbana shoes (R$ 6,700)." data-pt-html="Para a ocasião especial, Gil optou por um look de grife, avaliado em R$ 18.300. Em entrevista exclusiva à GQ Brasil, ele compartilha detalhes de sua escolha, feita sob supervisão de seu estilista pessoal, <strong>Eddy Bernardo</strong>. &quot;Eu queria algo elegante, refinado, discreto, mas que, ao mesmo tempo, representasse a grandiosidade desse evento, que merecia um look escolhido com muito cuidado.&quot; Gil veste look completo da Armani (R$ 11.650) e sapatos Dolce &amp; Gabbana (R$ 6.700).">For the special occasion, Gil opted for a designer look valued at R$ 18,300. In an exclusive interview with GQ Brazil, he shares details of his choice, made under the supervision of his personal stylist, <strong>Eddy Bernardo</strong>. "I wanted something elegant, refined, discreet, but that, at the same time, represented the grandeur of this event, which deserved a look chosen with great care." Gil wears a full Armani look (R$ 11,650) and Dolce & Gabbana shoes (R$ 6,700).</p>
+      <div class="photo-credit" data-en="Photo Credit: Gil do Vigor at Globo's 60th Anniversary Party - Source: GQ Brasil" data-pt="Credito da Foto: Gil do Vigor na festa de 60 anos da Globo - Foto: Divulgacao / GQ Brasil">Credito da Foto: Gil do Vigor na festa de 60 anos da Globo - Foto: Divulgacao / GQ Brasil</div>
+      <p data-en="For the special occasion, Gil opted for a designer look valued at R$ 18,300. In an exclusive interview with GQ Brazil, he shares details of his choice, made under the supervision of his personal stylist, Eddy Bernardo. 'I wanted something elegant, refined, discreet, but that, at the same time, represented the grandeur of this event, which deserved a look chosen with great care.' Gil wears a full Armani look (R$ 11,650) and Dolce &amp; Gabbana shoes (R$ 6,700)." data-pt="Para a ocasiao especial, Gil optou por um look de grife, avaliado em R$ 18.300. Em entrevista exclusiva a GQ Brasil, ele compartilha detalhes de sua escolha, feita sob supervisao de seu estilista pessoal, Eddy Bernardo. 'Eu queria algo elegante, refinado, discreto, mas que, ao mesmo tempo, representasse a grandiosidade desse evento, que merecia um look escolhido com muito cuidado.' Gil veste look completo da Armani (R$ 11.650) e sapatos Dolce &amp; Gabbana (R$ 6.700)." data-has-html="true" data-en-html="For the special occasion, Gil opted for a designer look valued at R$ 18,300. In an exclusive interview with GQ Brazil, he shares details of his choice, made under the supervision of his personal stylist, <strong>Eddy Bernardo</strong>. &quot;I wanted something elegant, refined, discreet, but that, at the same time, represented the grandeur of this event, which deserved a look chosen with great care.&quot; Gil wears a full Armani look (R$ 11,650) and Dolce &amp; Gabbana shoes (R$ 6,700)." data-pt-html="Para a ocasiao especial, Gil optou por um look de grife, avaliado em R$ 18.300. Em entrevista exclusiva a GQ Brasil, ele compartilha detalhes de sua escolha, feita sob supervisao de seu estilista pessoal, <strong>Eddy Bernardo</strong>. &quot;Eu queria algo elegante, refinado, discreto, mas que, ao mesmo tempo, representasse a grandiosidade desse evento, que merecia um look escolhido com muito cuidado.&quot; Gil veste look completo da Armani (R$ 11.650) e sapatos Dolce &amp; Gabbana (R$ 6.700).">For the special occasion, Gil opted for a designer look valued at R$ 18,300. In an exclusive interview with GQ Brazil, he shares details of his choice, made under the supervision of his personal stylist, <strong>Eddy Bernardo</strong>. "I wanted something elegant, refined, discreet, but that, at the same time, represented the grandeur of this event, which deserved a look chosen with great care." Gil wears a full Armani look (R$ 11,650) and Dolce & Gabbana shoes (R$ 6,700).</p>
     </div>
     <a href="https://gq.globo.com/estilo/noticia/2025/04/gil-do-vigor-escolhe-look-grifado-de-r-183-mil-para-festa-dos-60-anos-da-globo.ghtml" target="_blank" rel="noopener noreferrer"><img src="images/gil-do-vigor-globo-60.jpg" alt="Gil do Vigor styled by Eddy Bernardo at Globo's 60th Anniversary - Bernardo Styling" class="featured-image"></a>
   </section>
 
   <section class="services" id="services">
-    <h2 class="section-title" data-en="Exclusive Services" data-pt="Serviços Exclusivos">Serviços Exclusivos</h2>
-    <p class="section-subtitle" data-en="Each look is crafted to reflect your essence" data-pt="Cada look criado para refletir sua essência">Cada look criado para refletir sua essência</p>
+    <h2 class="section-title" data-en="Exclusive Services" data-pt="Servicos Exclusivos">Servicos Exclusivos</h2>
+    <p class="section-subtitle" data-en="Each look is crafted to reflect your essence" data-pt="Cada look criado para refletir sua essencia">Cada look criado para refletir sua essencia</p>
     <div class="services-grid">
       <div class="service-card">
-        <div class="service-icon">✨</div>
-        <h3 data-en="Strategic Styling" data-pt="Styling Estratégico">Styling Estratégico</h3>
-        <p data-en="Creating signature looks based on trends" data-pt="Criação de looks autorais baseados em tendências">Criação de looks autorais baseados em tendências</p>
+        <div class="service-icon">&#10024;</div>
+        <h3 data-en="Strategic Styling" data-pt="Styling Estrategico">Styling Estrategico</h3>
+        <p data-en="Creating signature looks based on trends" data-pt="Criacao de looks autorais baseados em tendencias">Criacao de looks autorais baseados em tendencias</p>
       </div>
       <div class="service-card">
-        <div class="service-icon">👔</div>
+        <div class="service-icon">&#128084;</div>
         <h3 data-en="Exclusive One-on-One" data-pt="Atendimento Exclusivo">Atendimento Exclusivo</h3>
-        <p data-en="Personalized attention with total focus" data-pt="Atenção personalizada com foco total em você">Atenção personalizada com foco total em você</p>
+        <p data-en="Personalized attention with total focus" data-pt="Atencao personalizada com foco total em voce">Atencao personalizada com foco total em voce</p>
       </div>
       <div class="service-card">
-        <div class="service-icon">🌍</div>
-        <h3 data-en="International Inspiration" data-pt="Inspiração Internacional">Inspiração Internacional</h3>
-        <p data-en="Global influences blended with your aesthetic" data-pt="Influências globais combinadas com sua estética">Influências globais combinadas com sua estética</p>
+        <div class="service-icon">&#127757;</div>
+        <h3 data-en="International Inspiration" data-pt="Inspiracao Internacional">Inspiracao Internacional</h3>
+        <p data-en="Global influences blended with your aesthetic" data-pt="Influencias globais combinadas com sua estetica">Influencias globais combinadas com sua estetica</p>
       </div>
     </div>
   </section>
 
   <section id="locations">
-    <h2 class="section-title" data-en="Our Locations" data-pt="Nossas Localizações">Nossas Localizações</h2>
-    <p class="section-subtitle" data-en="Premium styling services worldwide" data-pt="Serviços premium de styling em todo o mundo">Serviços premium de styling em todo o mundo</p>
-
+    <h2 class="section-title" data-en="Our Locations" data-pt="Nossas Localizacoes">Nossas Localizacoes</h2>
+    <p class="section-subtitle" data-en="Premium styling services worldwide" data-pt="Servicos premium de styling em todo o mundo">Servicos premium de styling em todo o mundo</p>
     <div class="services-grid">
       <div class="service-card">
         <h3>São Paulo</h3>
@@ -892,26 +948,23 @@
       </div>
     </div>
   </section>
-  <section id="vision-mission">
-        <h2 class="section-title" data-en="Our Vision & Mission" data-pt="Nossa Visão e Missão">Our Vision & Mission</h2>
-        
-        <div class="vision-mission-container">
-            <div class="vision-card">
-                <h3 data-en="Vision Statement" data-pt="Declaração de Visão">Vision Statement</h3>
-                <p data-en="To bring celebrity-level styling to clients around the world, making an iconic image an everyday reality, not a distant dream." data-pt="Trazer styling de nível de celebridade para clientes em todo o mundo, tornando uma imagem icônica uma realidade cotidiana, não um sonho distante.">To bring celebrity-level styling to clients around the world, making an iconic image an everyday reality, not a distant dream.</p>
-            </div>
-            
-            <div class="mission-card">
-                <h3 data-en="Mission Statement" data-pt="Declaração de Missão">Mission Statement</h3>
-                <p data-en="To craft personalized, strategic looks that bring celebrity-level styling into everyday life, translating each client's unique personality into a polished, iconic image." data-pt="Criar looks personalizados e estratégicos que trazem styling de nível de celebridade para o dia a dia, traduzindo a personalidade única de cada cliente em uma imagem polida e icônica.">To craft personalized, strategic looks that bring celebrity-level styling into everyday life, translating each client's unique personality into a polished, iconic image.</p>
-            </div>
-        </div>
-    </section>
 
- 
+  <section id="vision-mission">
+    <h2 class="section-title" data-en="Our Vision &amp; Mission" data-pt="Nossa Visao e Missao">Nossa Visao e Missao</h2>
+    <div class="vision-mission-container">
+      <div class="vision-card">
+        <h3 data-en="Vision Statement" data-pt="Declaracao de Visao">Declaracao de Visao</h3>
+        <p data-en="To bring celebrity-level styling to clients around the world, making an iconic image an everyday reality, not a distant dream." data-pt="Trazer styling de nivel de celebridade para clientes em todo o mundo, tornando uma imagem iconica uma realidade cotidiana, nao um sonho distante.">Trazer styling de nivel de celebridade para clientes em todo o mundo, tornando uma imagem iconica uma realidade cotidiana, nao um sonho distante.</p>
+      </div>
+      <div class="mission-card">
+        <h3 data-en="Mission Statement" data-pt="Declaracao de Missao">Declaracao de Missao</h3>
+        <p data-en="To craft personalized, strategic looks that bring celebrity-level styling into everyday life, translating each client's unique personality into a polished, iconic image." data-pt="Criar looks personalizados e estrategicos que trazem styling de nivel de celebridade para o dia a dia, traduzindo a personalidade unica de cada cliente em uma imagem polida e iconica.">Criar looks personalizados e estrategicos que trazem styling de nivel de celebridade para o dia a dia, traduzindo a personalidade unica de cada cliente em uma imagem polida e iconica.</p>
+      </div>
+    </div>
+  </section>
 
   <section class="contact" id="contact">
-    <h2 class="section-title" data-en="Begin Your Transformation" data-pt="Inicie Sua Transformação">Inicie Sua Transformação</h2>
+    <h2 class="section-title" data-en="Begin Your Transformation" data-pt="Inicie Sua Transformacao">Inicie Sua Transformacao</h2>
     <p class="section-subtitle" data-en="Book your private consultation" data-pt="Agende sua consultoria privada">Agende sua consultoria privada</p>
     <form class="contact-form" onsubmit="handleSubmit(event)">
       <div class="form-group">
@@ -934,41 +987,58 @@
     </form>
   </section>
 
-  <footer style="background: #000; padding: 3rem 5%; text-align: center; border-top: 1px solid #C89116;">
-    <p style="color: #fff; margin-bottom: 1rem;" data-en="Follow us on Instagram" data-pt="Siga-nos no Instagram">Siga-nos no Instagram</p>
-    <a href="https://www.instagram.com/bernardostyling?igsh=bTF6NDd5N2t6NzJl&utm_source=qr" target="_blank" style="display: inline-block; padding: 0.8rem 2rem; background: #C89116; color: #000; text-decoration: none; font-weight: 600; transition: all 0.3s ease;" data-en="@bernardostyling" data-pt="@bernardostyling">@bernardostyling</a>
-    <p style="color: #C0C0C0; margin-top: 2rem; font-size: 0.9rem;" data-en="Copyright 2025 Bernardo Styling. All rights reserved." data-pt="Direitos autorais 2025 Bernardo Styling. Todos os direitos reservados.">Direitos autorais 2025 Bernardo Styling. Todos os direitos reservados.</p>
+  <footer style="background:#000; padding:3rem 5%; text-align:center; border-top:1px solid #C89116;">
+    <p style="color:#fff; margin-bottom:1rem;" data-en="Follow us on Instagram" data-pt="Siga-nos no Instagram">Siga-nos no Instagram</p>
+    <a href="https://www.instagram.com/bernardostyling?igsh=bTF6NDd5N2t6NzJl&utm_source=qr" target="_blank" style="display:inline-block; padding:0.8rem 2rem; background:#C89116; color:#000; text-decoration:none; font-weight:600; transition:all 0.3s ease;" data-en="@bernardostyling" data-pt="@bernardostyling">@bernardostyling</a>
+    <p style="color:#C0C0C0; margin-top:2rem; font-size:0.9rem;" data-en="Copyright 2025 Bernardo Styling. All rights reserved." data-pt="Direitos autorais 2025 Bernardo Styling. Todos os direitos reservados.">Direitos autorais 2025 Bernardo Styling. Todos os direitos reservados.</p>
   </footer>
 
   <script>
     (function() {
       'use strict';
 
-      /* -------------------------------------------------------
-         1. LANGUAGE SWITCHER — complete rewrite
-         Default: Portuguese. Only switch to English on explicit
-         user action or English browser locale.
-      ------------------------------------------------------- */
+      /* =========================================================
+         1. HEADER SPACER
+         Dynamically matches the fixed header height so content
+         is never hidden behind it. Recalculates on resize and
+         when the notification bar is dismissed.
+         ========================================================= */
+      var siteHeader = document.getElementById('siteHeader');
+      var headerSpacer = document.getElementById('headerSpacer');
 
-      // Determine initial language: stored preference > browser locale > Portuguese fallback
+      function syncSpacer() {
+        if (siteHeader && headerSpacer) {
+          headerSpacer.style.height = siteHeader.offsetHeight + 'px';
+        }
+      }
+
+      window.addEventListener('resize', syncSpacer);
+      syncSpacer();
+
+      /* =========================================================
+         2. LANGUAGE SWITCHER
+         Default: Portuguese. English only via explicit click or
+         detected English browser locale. Fallback always PT.
+         ========================================================= */
       function detectInitialLanguage() {
         var stored = localStorage.getItem('bs_language');
         if (stored === 'en' || stored === 'pt') return stored;
-
-        // Check browser locale — only auto-switch to 'en' if clearly English
-        var browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
-        if (browserLang.indexOf('en') === 0) return 'en';
-
-        // Fallback is always Portuguese
+        var bLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+        if (bLang.indexOf('en') === 0) return 'en';
         return 'pt';
       }
 
       var currentLang = detectInitialLanguage();
 
-      // Cache DOM references once
+      // Desktop switcher refs
       var langSwitcher = document.getElementById('langSwitcher');
       var langEN = document.getElementById('langEN');
       var langPT = document.getElementById('langPT');
+
+      // Mobile switcher refs
+      var langSwitcherMobile = document.getElementById('langSwitcherMobile');
+      var langENMobile = document.getElementById('langENMobile');
+      var langPTMobile = document.getElementById('langPTMobile');
 
       function setLanguage(lang) {
         if (lang !== 'en' && lang !== 'pt') return;
@@ -977,8 +1047,15 @@
         renderLanguage();
       }
 
+      function updateSwitcherUI(switcher, enBtn, ptBtn) {
+        if (!switcher || !enBtn || !ptBtn) return;
+        switcher.setAttribute('data-active', currentLang);
+        enBtn.setAttribute('aria-pressed', String(currentLang === 'en'));
+        ptBtn.setAttribute('aria-pressed', String(currentLang === 'pt'));
+      }
+
       function renderLanguage() {
-        // Update all translatable elements
+        // Translate all elements with data-en/data-pt
         var elements = document.querySelectorAll('[data-en][data-pt]');
         for (var i = 0; i < elements.length; i++) {
           var el = elements[i];
@@ -988,7 +1065,6 @@
             if (htmlContent) {
               el.innerHTML = htmlContent;
             } else {
-              // Fallback for stylist name element
               el.innerHTML = currentLang === 'en'
                 ? 'Styled by <span class="highlight-name">Bernardo</span>'
                 : 'Estilizado por <span class="highlight-name">Bernardo</span>';
@@ -999,108 +1075,108 @@
           if (text !== null) el.textContent = text;
         }
 
-        // Update switcher UI — aria-pressed + data-active drive all visuals
-        if (langSwitcher && langEN && langPT) {
-          langSwitcher.setAttribute('data-active', currentLang);
-          langEN.setAttribute('aria-pressed', String(currentLang === 'en'));
-          langPT.setAttribute('aria-pressed', String(currentLang === 'pt'));
-        }
+        // Sync both switcher UIs
+        updateSwitcherUI(langSwitcher, langEN, langPT);
+        updateSwitcherUI(langSwitcherMobile, langENMobile, langPTMobile);
 
-        // SEO: update html lang attribute
         document.documentElement.lang = currentLang;
       }
 
-      // Attach click handlers via addEventListener (not inline onclick)
-      if (langEN) {
-        langEN.addEventListener('click', function(e) {
+      // Wire up click handlers for both desktop + mobile switchers
+      function wireLangBtn(btn, lang) {
+        if (!btn) return;
+        btn.addEventListener('click', function(e) {
           e.preventDefault();
           e.stopPropagation();
-          setLanguage('en');
+          setLanguage(lang);
         });
       }
-      if (langPT) {
-        langPT.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          setLanguage('pt');
-        });
-      }
+
+      wireLangBtn(langEN, 'en');
+      wireLangBtn(langPT, 'pt');
+      wireLangBtn(langENMobile, 'en');
+      wireLangBtn(langPTMobile, 'pt');
 
       // Initial render
       renderLanguage();
 
-      /* -------------------------------------------------------
-         2. NOTIFICATION BAR — complete rewrite
-         Dismissible, persisted in localStorage.
-      ------------------------------------------------------- */
-
+      /* =========================================================
+         3. NOTIFICATION BAR
+         Dismissible. Persisted via localStorage.
+         ========================================================= */
       var notifBar = document.getElementById('notificationBar');
       var notifClose = document.getElementById('notificationClose');
 
-      function initNotificationBar() {
-        if (!notifBar) return;
-
-        // If previously dismissed, hide immediately
-        if (localStorage.getItem('bs_notif_dismissed') === '1') {
+      function dismissNotification() {
+        if (notifBar) {
           notifBar.classList.add('is-hidden');
-          return;
-        }
-
-        // Wire up close button
-        if (notifClose) {
-          notifClose.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            notifBar.classList.add('is-hidden');
-            localStorage.setItem('bs_notif_dismissed', '1');
-          });
+          localStorage.setItem('bs_notif_dismissed', '1');
+          // Recalculate spacer since header is now shorter
+          syncSpacer();
         }
       }
 
-      initNotificationBar();
+      if (notifBar) {
+        if (localStorage.getItem('bs_notif_dismissed') === '1') {
+          notifBar.classList.add('is-hidden');
+        }
+      }
 
-      /* -------------------------------------------------------
-         3. MOBILE MENU (unchanged logic, cleaner structure)
-      ------------------------------------------------------- */
+      if (notifClose) {
+        notifClose.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          dismissNotification();
+        });
+      }
+
+      // Re-sync spacer after notification bar state is resolved
+      syncSpacer();
+
+      /* =========================================================
+         4. MOBILE MENU
+         ========================================================= */
+      var mobileNav = document.getElementById('mobileNav');
+      var hamburger = document.getElementById('hamburger');
 
       function toggleMenu() {
-        var nav = document.getElementById('mobileNav');
-        var btn = document.getElementById('hamburger');
-        if (!nav || !btn) return;
-        var isOpen = nav.classList.contains('open');
-        nav.classList.toggle('open', !isOpen);
-        btn.classList.toggle('is-open', !isOpen);
+        if (!mobileNav || !hamburger) return;
+        var isOpen = mobileNav.classList.contains('open');
+        mobileNav.classList.toggle('open', !isOpen);
+        hamburger.classList.toggle('is-open', !isOpen);
       }
 
       function closeMenu() {
-        var nav = document.getElementById('mobileNav');
-        var btn = document.getElementById('hamburger');
-        if (nav) nav.classList.remove('open');
-        if (btn) btn.classList.remove('is-open');
+        if (mobileNav) mobileNav.classList.remove('open');
+        if (hamburger) hamburger.classList.remove('is-open');
       }
 
-      // Expose to inline onclick handlers in HTML
-      window.toggleMenu = toggleMenu;
-      window.closeMenu = closeMenu;
+      // Hamburger click
+      if (hamburger) {
+        hamburger.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleMenu();
+        });
+      }
 
+      // Expose navScrollTo for inline onclick on links
       window.navScrollTo = function(id) {
         closeMenu();
         var el = document.getElementById(id);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
       };
 
-      // Close mobile menu when tapping outside nav
+      // Close menu when tapping outside the header
       document.addEventListener('click', function(e) {
-        var nav = document.querySelector('nav');
-        if (nav && !nav.contains(e.target)) {
+        if (siteHeader && !siteHeader.contains(e.target)) {
           closeMenu();
         }
       });
 
-      /* -------------------------------------------------------
-         4. FORM HANDLER
-      ------------------------------------------------------- */
-
+      /* =========================================================
+         5. FORM HANDLER
+         ========================================================= */
       window.handleSubmit = function(event) {
         event.preventDefault();
         alert(currentLang === 'en'
